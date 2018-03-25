@@ -1,0 +1,1134 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hexo配置,建站,Next主题," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;在上一篇博客Hexo+Github搭建个人博客(一)——开始搭建中介绍了如何安装git、hexo以及将文件推送到github上，相信看到这篇博客的时候你已经有了一个漂亮的博客">
+<meta name="keywords" content="hexo配置,建站,Next主题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo+Github搭建个人博客(二)——配置&amp;主题">
+<meta property="og:url" content="https://brightloong.github.io/2017/02/25/Hexo-Github建站（二）——配置/index.html">
+<meta property="og:site_name" content="BrightLoong&#39;s Blog">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;在上一篇博客Hexo+Github搭建个人博客(一)——开始搭建中介绍了如何安装git、hexo以及将文件推送到github上，相信看到这篇博客的时候你已经有了一个漂亮的博客">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://brightloong.github.io/images/Next.jpg">
+<meta property="og:image" content="https://brightloong.github.io/images/weisiteico.jpg">
+<meta property="og:image" content="https://brightloong.github.io/images/yuedu.jpg">
+<meta property="og:image" content="https://brightloong.github.io/images/duoshuo-create-site.jpg">
+<meta property="og:image" content="https://brightloong.github.io/images/duoshuo_hot.jpg">
+<meta property="og:image" content="https://brightloong.github.io/images/tongji.jpg">
+<meta property="og:updated_time" content="2017-02-26T04:03:17.216Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo+Github搭建个人博客(二)——配置&amp;主题">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在上一篇博客Hexo+Github搭建个人博客(一)——开始搭建中介绍了如何安装git、hexo以及将文件推送到github上，相信看到这篇博客的时候你已经有了一个漂亮的博客">
+<meta name="twitter:image" content="https://brightloong.github.io/images/Next.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://brightloong.github.io/2017/02/25/Hexo-Github建站（二）——配置/"/>
+
+
+
+
+
+  <title> Hexo+Github搭建个人博客(二)——配置&主题 | BrightLoong's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1c8a47024ddabbbadeed98a78b39934d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">BrightLoong's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://brightloong.github.io/2017/02/25/Hexo-Github建站（二）——配置/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="BrightLoong">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="BrightLoong's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="BrightLoong's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Hexo+Github搭建个人博客(二)——配置&主题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-25T10:27:37+08:00">
+                2017-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/建站/" itemprop="url" rel="index">
+                    <span itemprop="name">建站</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/02/25/Hexo-Github建站（二）——配置/" class="leancloud_visitors" data-flag-title="Hexo+Github搭建个人博客(二)——配置&主题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/images/Next.jpg" alt="title-picture"><br>&emsp;&emsp;在上一篇博客<a href="https://brightloong.github.io/2017/02/24/Hexo-Github%E5%BB%BA%E7%AB%99-%E4%B8%80-%E5%BC%80%E5%A7%8B%E5%BB%BA%E7%AB%99/#more">Hexo+Github搭建个人博客(一)——开始搭建</a>中介绍了如何安装git、hexo以及将文件推送到github上，相信看到这篇博客的时候你已经有了一个漂亮的博客<a id="more"></a>。这篇博客主要介绍如何发布文章、在站点配置文件中配置一些个性化的信息，以及更换主题（<strong>我现在使用的是Next主题，所以关于主题配置以及之后的集成第三方工具等都是基于Next主题来说的</strong>），更换主题后如何集成第三方工具。</p>
+<h2 id="发布新的博客"><a href="#发布新的博客" class="headerlink" title="发布新的博客"></a>发布新的博客</h2><p>&emsp;&emsp;既然博客已经搭建好了，那么不发几篇博文有就没有意义了，使用下面的命令来新建一篇叫做”brightloong”的文章。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &apos;brightloong&apos;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;命令执行之后，你会在你文件博客根目录的source/_post目录下找到你刚刚新建的md后缀的文件，比如我的是<strong><em>F:\myblog\source_posts\brightloong.md</em></strong>，hexo博客是使用markdown语法来书写的，如果不熟悉markdown语法可以快速的看一下<a href="http://www.appinn.com/markdown/" target="_blank" rel="noopener">markdown语法说明</a>，或者是<a href="http://sspai.com/25137/" target="_blank" rel="noopener">认识与入门Markdown</a>,后者也有推荐一些不同平台下使用的编辑Markdown的工具，本人使用的是<a href="http://www.appinn.com/markdown/" target="_blank" rel="noopener">Cmd Markdown</a>，它既支持在线的编辑，也可以下载下来使用。生成的md文件打开如下：</p>
+<blockquote>
+<p><strong>注意：</strong>在冒号后面一定要加上一个空格，否则在生成静态文件的时候会报错，并且也不能将其成功推送到github。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: brightloong #文章标题</span><br><span class="line">date: 2017-02-24 12:03:12 #创建时间</span><br><span class="line">tags: #文章标签，如果有多个标签可以使用[1,2,3]的形式，还有其他形式自己摸索吧</span><br><span class="line">---</span><br><span class="line">#这之后是正文</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;文章编写好之后，只用以下命令生成静态文件并推送到github上，执行完成后打开自己的博客页面，是不是发现刚刚编写的文章出现了；如果你想删除某一篇文章，那么在source/_post目录下找到对应的文章将其删除后，同样执行一下命令就OK了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<h2 id="站点配置文件-config-yml"><a href="#站点配置文件-config-yml" class="headerlink" title="站点配置文件_config.yml"></a>站点配置文件_config.yml</h2><p>&emsp;&emsp;站点配置文件_config.yml是在你博客保存目录的根目录下，<strong>注意将它与主题配置文件进行区分</strong>，比如我保存的博客目录为<strong><em>F:\myblog</em></strong>那么我站点配置文件为<strong><em>F:\myblog_config.yml</em></strong>，我使用的主题是Next主题，所以我的主题配置文件为<strong><em>F:\myblog\themes\next_config.yml</em></strong>。下面我先介绍下站点配置文件，我将一些主要的配置做了注释，如果你想了解更多的配置的含义和作用，请访问<a href="https://hexo.io/docs/configuration.html" target="_blank" rel="noopener">Hexo官方教程</a>查看。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"># Hexo Configuration</span><br><span class="line">## Docs: https://hexo.io/docs/configuration.html</span><br><span class="line">## Source: https://github.com/hexojs/hexo/</span><br><span class="line"></span><br><span class="line"># Site</span><br><span class="line">title: BrightLoong&apos;s Blog #博客的标题</span><br><span class="line">subtitle: #子标题</span><br><span class="line">description: Remember what should be remembered, and forget what should be forgotten.Alter what is changeable, and accept what is mutable. #博客描述，可以是一段你喜欢的话，也可以是你博客的描述，只要你开心就好。</span><br><span class="line">author: BrightLoong #作者</span><br><span class="line">language: zh-Hans #语言（我使用的是简体中文）</span><br><span class="line">timezone: #时区（默认使用电脑时间）</span><br><span class="line"></span><br><span class="line">##之下的保持默认就好，没有什么需要更改的</span><br><span class="line"># URL</span><br><span class="line">## If your site is put in a subdirectory, set url as &apos;http://yoursite.com/child&apos; #and root as &apos;/child/&apos;</span><br><span class="line">url: https://brightloong.github.io</span><br><span class="line">root: /</span><br><span class="line">permalink: :year/:month/:day/:title/</span><br><span class="line">permalink_defaults:</span><br><span class="line"></span><br><span class="line"># Directory</span><br><span class="line">source_dir: source #source目录</span><br><span class="line">public_dir: public</span><br><span class="line">tag_dir: tags #标签目录</span><br><span class="line">archive_dir: archives </span><br><span class="line">category_dir: categories #分类目录</span><br><span class="line">code_dir: downloads/code</span><br><span class="line">i18n_dir: :lang</span><br><span class="line">skip_render: static/** #注意这个属性（跳过渲染），你暂时不用配置，我之后会讲到，这个也是我遇到的坑</span><br><span class="line"></span><br><span class="line">##之下的保持默认就好，没有什么需要更改的</span><br><span class="line"># Writing</span><br><span class="line">new_post_name: :title.md # File name of new posts</span><br><span class="line">default_layout: post</span><br><span class="line">titlecase: false # Transform title into titlecase</span><br><span class="line">external_link: true # Open external links in new tab</span><br><span class="line">filename_case: 0</span><br><span class="line">render_drafts: false</span><br><span class="line">post_asset_folder: false</span><br><span class="line">relative_link: false</span><br><span class="line">future: true</span><br><span class="line">highlight:</span><br><span class="line">  enable: true</span><br><span class="line">  line_number: true</span><br><span class="line">  auto_detect: false</span><br><span class="line">  tab_replace:</span><br><span class="line"></span><br><span class="line"># Category &amp; Tag</span><br><span class="line">default_category: uncategorized</span><br><span class="line">category_map:</span><br><span class="line">tag_map:</span><br><span class="line"></span><br><span class="line"># Date / Time format</span><br><span class="line">## Hexo uses Moment.js to parse and display date</span><br><span class="line">## You can customize the date format as defined in</span><br><span class="line">## http://momentjs.com/docs/#/displaying/format/</span><br><span class="line">date_format: YYYY-MM-DD</span><br><span class="line">time_format: HH:mm:ss</span><br><span class="line"></span><br><span class="line"># Pagination</span><br><span class="line">## Set per_page to 0 to disable pagination</span><br><span class="line">per_page: 10</span><br><span class="line">pagination_dir: page</span><br><span class="line"></span><br><span class="line"># Extensions</span><br><span class="line">## Plugins: https://hexo.io/plugins/</span><br><span class="line">## Themes: https://hexo.io/themes/</span><br><span class="line">theme: next #你设置的主题，接下来我会说到这个</span><br><span class="line"></span><br><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/BrightLoong/BrightLoong.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<h2 id="主题更换"><a href="#主题更换" class="headerlink" title="主题更换"></a>主题更换</h2><p>&emsp;&emsp;搭建自己的博客，最吸引人的莫过于那千变万化的主题了，大家可以在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">Hexo官网</a>上看到无数漂亮、大方、简洁的主题。本人使用的是简洁的<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">Next主题</a>，你可以选择你喜欢的下载下来，将其解压放入themes目录中，比如我的目录是<strong><em>F:\myblog\themes</em></strong>，然后修改我在上面提到的站点配置文件中的<code>theme</code>属性，为你刚刚放入themes目录中文件的名字（最好是对解压文件修改一个名字，否则名字可能会比较长，我把我下载下来的主题改文了next）,做完这些之后并不代表你完成了，你还需要参考你所下载的主题所说的配置步骤进行相关的配置，由于不同的主题配置过程也尽不相同，大家根据自己下载的主题去配置，我在这里只说我使用的Next主题如何配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意：</strong>从下面开始所说的都是Next主题的相关配置。</p>
+</blockquote>
+<h2 id="配置Next主题"><a href="#配置Next主题" class="headerlink" title="配置Next主题"></a>配置Next主题</h2><p>&emsp;&emsp;如果你使用的和我一样，也是Next的主题，那么你最好还是看官方提供<a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">Next使用文档</a>，并且文档是中文版的,我也仅仅是讲一些容易被忽略的配置，以及我使用的配置，以及在使用过程中遇到的问题;至于如何更换头像，添加分类和标签页面、切换主题样式（Next主题包含3中样式）之类的，大家还是照着官方的做更好。</p>
+<h3 id="1-配置网站图标"><a href="#1-配置网站图标" class="headerlink" title="1. 配置网站图标"></a>1. 配置网站图标</h3><p>&emsp;&emsp;如何让网站前能显示自己想要的图标，我当时也是找了很久，最后发现是在<strong>主题配置文件（我的是F:\myblog\themes\next_config.yml）</strong>的最前面，有一个<strong>favicon</strong>属性，我把一个名字叫favicon.ico的图片放到了F:\myblog\source下，然后配置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">favicon: /favicon.ico</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/weisiteico.jpg" alt="website ico"></p>
+<h3 id="2-首页显示阅读全文按钮"><a href="#2-首页显示阅读全文按钮" class="headerlink" title="2. 首页显示阅读全文按钮"></a>2. 首页显示阅读全文按钮</h3><p>&emsp;&emsp;首页的文章是不是默认展开了，显示出了整篇文章，怎么才能显示出如下的阅读全文的按钮。<br><img src="/images/yuedu.jpg" alt="button"><br>在<strong>主题配置文件</strong>中找到<strong>auto_excerpt</strong>属性进行配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">auto_excerpt:</span><br><span class="line">  enable: true #改写为true</span><br><span class="line">  length: 150 #默认展示的高度</span><br></pre></td></tr></table></figure></p>
+<p>你也可以在自己的博文中添加<strong><em><code>&lt;!--more--&gt;</code></em></strong>来决定在首页展示到什么位置（我就喜欢用这种方式），这个标签后的内容就不会展示到首页啦。</p>
+<h3 id="3-集成多说评论"><a href="#3-集成多说评论" class="headerlink" title="3. 集成多说评论"></a>3. 集成多说评论</h3><p>&emsp;&emsp;登录<a href="http://duoshuo.com/" target="_blank" rel="noopener">多说</a>，登录后在首页选择“我要安装”。创建站点，填写表单。多说域名 这一栏填写的即是你的 duoshuo_shortname，如图：<br><img src="/images/duoshuo-create-site.jpg" alt="duoshuo"><br>&emsp;&emsp;创建站点完成后在 <strong>站点配置文件(我的是F:\myblog_config.yml)</strong> 中新增 duoshuo_shortname 字段，值设置成上一步红框中的值。</p>
+<blockquote>
+<p><strong>注意</strong>：新增字段的时候一定不要让字段前面有空格，否则会被认为是子字段，无法正确解析</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#多说评论</span><br><span class="line">duoshuo_shortname: brightloong #设置为红框中的值</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;多说评论中可以开启热评文章，在<strong>站点配置文件</strong>中增加字段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">duoshuo_hotartical: true</span><br></pre></td></tr></table></figure></p>
+<p>开启后你可能会发现点击热评文章并不能跳转到对应的网页，进入多说后台查看，发现原来网址不正确，那简单，点击编辑修改成正确的网址就OK了。<br><img src="/images/duoshuo_hot.jpg" alt="duoshuo_hot"></p>
+<h3 id="4-阅读次数统计"><a href="#4-阅读次数统计" class="headerlink" title="4. 阅读次数统计"></a>4. 阅读次数统计</h3><p>&emsp;&emsp;次数统计又leancloud提供，请参考由由<a href="https://github.com/iissnan/hexo-theme-next/pull/439" target="_blank" rel="noopener">Doublemine</a> 贡献提供的<a href="https://notes.wanghao.work/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html#%E9%85%8D%E7%BD%AELeanCloud" target="_blank" rel="noopener">为Next主题添加阅读次数统计功能</a><br><img src="/images/tongji.jpg" alt="leancloud"></p>
+<h3 id="5-集成百度分享"><a href="#5-集成百度分享" class="headerlink" title="5. 集成百度分享"></a>5. 集成百度分享</h3><p>&emsp;&emsp;分享功能的集成是最坑的没有之一，我大概花了半天多的时间查找各种方法才将其解决，这里我先说官网的配置：编辑 <strong>站点配置文件</strong>，添加字段 <strong>baidushare</strong>，值为 <strong>true</strong>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">baidushare: true #百度分享功能</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;欢欢喜喜的打开自己的博客。咦！百度分享功能咋没有添加上啊。不急，听我慢道来。我在主题文件中发现一个文件<br><strong>F:\myblog\themes\next\layout_partials\share\baidushare.swing</strong>，内容如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if theme.baidushare.type === &quot;button&quot; %&#125;</span><br><span class="line">  &lt;div class=&quot;bdsharebuttonbox&quot;&gt;</span><br><span class="line">    &lt;a href=&quot;#&quot; class=&quot;bds_tsina&quot; data-cmd=&quot;tsina&quot; title=&quot;分享到新浪微博&quot;&gt;&lt;/a&gt;</span><br><span class="line">    &lt;a href=&quot;#&quot; class=&quot;bds_douban&quot; data-cmd=&quot;douban&quot; title=&quot;分享到豆瓣网&quot;&gt;&lt;/a&gt;</span><br><span class="line">    &lt;a href=&quot;#&quot; class=&quot;bds_sqq&quot; data-cmd=&quot;sqq&quot; title=&quot;分享到QQ好友&quot;&gt;&lt;/a&gt;</span><br><span class="line">    &lt;a href=&quot;#&quot; class=&quot;bds_qzone&quot; data-cmd=&quot;qzone&quot; title=&quot;分享到QQ空间&quot;&gt;&lt;/a&gt;</span><br><span class="line">    &lt;a href=&quot;#&quot; class=&quot;bds_weixin&quot; data-cmd=&quot;weixin&quot; title=&quot;分享到微信&quot;&gt;&lt;/a&gt;</span><br><span class="line">    &lt;a href=&quot;#&quot; class=&quot;bds_tieba&quot; data-cmd=&quot;tieba&quot; title=&quot;分享到百度贴吧&quot;&gt;&lt;/a&gt;</span><br><span class="line">    &lt;a href=&quot;#&quot; class=&quot;bds_twi&quot; data-cmd=&quot;twi&quot; title=&quot;分享到Twitter&quot;&gt;&lt;/a&gt;</span><br><span class="line">    &lt;a href=&quot;#&quot; class=&quot;bds_fbook&quot; data-cmd=&quot;fbook&quot; title=&quot;分享到Facebook&quot;&gt;&lt;/a&gt;</span><br><span class="line">    &lt;a href=&quot;#&quot; class=&quot;bds_more&quot; data-cmd=&quot;more&quot;&gt;&lt;/a&gt;</span><br><span class="line">    &lt;a class=&quot;bds_count&quot; data-cmd=&quot;count&quot;&gt;&lt;/a&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    window._bd_share_config = &#123;</span><br><span class="line">      &quot;common&quot;: &#123;</span><br><span class="line">        &quot;bdText&quot;: &quot;&quot;,</span><br><span class="line">        &quot;bdMini&quot;: &quot;2&quot;,</span><br><span class="line">        &quot;bdMiniList&quot;: false,</span><br><span class="line">        &quot;bdPic&quot;: &quot;&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;share&quot;: &#123;</span><br><span class="line">        &quot;bdSize&quot;: &quot;16&quot;,</span><br><span class="line">        &quot;bdStyle&quot;: &quot;0&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;image&quot;: &#123;</span><br><span class="line">        &quot;viewList&quot;: [&quot;tsina&quot;, &quot;douban&quot;, &quot;sqq&quot;, &quot;qzone&quot;, &quot;weixin&quot;, &quot;twi&quot;, &quot;fbook&quot;],</span><br><span class="line">        &quot;viewText&quot;: &quot;分享到：&quot;,</span><br><span class="line">        &quot;viewSize&quot;: &quot;16&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&#123;% elseif theme.baidushare.type === &quot;slide&quot; %&#125;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">    window._bd_share_config = &#123;</span><br><span class="line">      &quot;common&quot;: &#123;</span><br><span class="line">        &quot;bdText&quot;: &quot;&quot;,</span><br><span class="line">        &quot;bdMini&quot;: &quot;1&quot;,</span><br><span class="line">        &quot;bdMiniList&quot;: false,</span><br><span class="line">        &quot;bdPic&quot;: &quot;&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;image&quot;: &#123;</span><br><span class="line">        &quot;viewList&quot;: [&quot;tsina&quot;, &quot;douban&quot;, &quot;sqq&quot;, &quot;qzone&quot;, &quot;weixin&quot;, &quot;twi&quot;, &quot;fbook&quot;],</span><br><span class="line">        &quot;viewText&quot;: &quot;分享到：&quot;,</span><br><span class="line">        &quot;viewSize&quot;: &quot;16&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;slide&quot;: &#123;</span><br><span class="line">        &quot;bdImg&quot;: &quot;5&quot;,</span><br><span class="line">        &quot;bdPos&quot;: &quot;left&quot;,</span><br><span class="line">        &quot;bdTop&quot;: &quot;100&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  with(document)0[(getElementsByTagName(&apos;head&apos;)[0]||body).appendChild(createElement(&apos;script&apos;)).src=&apos;/static/api/js/share.js?cdnversion=&apos;+~(-new Date()/36e5)];&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;注意到最开始的语句了吗<strong>if theme.baidushare.type === “button”</strong>，以及之后的<strong>else if theme.baidushare.type === “slide”</strong>什么意思，在theme下也就是<strong>主题配置文件</strong>中，baidushare字段下的type字段，我们打开<strong>主题配置文件(我的是F:\myblog\themes\next_config.yml)</strong>，这个配置是不是被注释掉了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">baidushare: </span><br><span class="line">  type: button #百度分享展示的方式button|slide</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;修改之后，再启动，发现还是没有（如果你是用的<strong>本地启动</strong>用local的方式访问可能会看到百度分享功能已经出现了），这个是后打开浏览器F12的调试功能，是不是发现控制台报错了，提示你从https中去访问http的资源是不行的。不知道大家有没有看到刚刚我们修改的主题配置文件中，在上面有一段注释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Warning: Baidu Share does not support https.百度分享不支持https</span><br><span class="line">baidushare: </span><br><span class="line">  type: button</span><br></pre></td></tr></table></figure>
+<p>是的不支持https的方式，自己的域名是用https开头的（除非你自己购买了域名，如何购买更换域名请大家参考<a href="http://www.jianshu.com/p/1d427e888dda" target="_blank" rel="noopener">【Hexo+Github】域名和github绑定的问题</a>）。并且，JiaThis等都不支持https，怎么办？我将在下一篇博客中单独介绍我在搭建博客中遇到的最大的坑，<a href="https://brightloong.github.io/2017/02/26/Hexo-Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-%E4%B8%89-%E2%80%94%E2%80%94%E7%99%BE%E5%BA%A6%E5%88%86%E4%BA%AB%E9%9B%86%E6%88%90/#more">百度分享如何在https下使用</a>。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat_play.jpg" alt="BrightLoong WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/aliplay.jpg" alt="BrightLoong Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hexo配置/" rel="tag"># hexo配置</a>
+          
+            <a href="/tags/建站/" rel="tag"># 建站</a>
+          
+            <a href="/tags/Next主题/" rel="tag"># Next主题</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/24/Hexo-Github建站-一-开始建站/" rel="next" title="Hexo+Github搭建个人博客(一)——开始搭建">
+                <i class="fa fa-chevron-left"></i> Hexo+Github搭建个人博客(一)——开始搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/26/Hexo-Github搭建个人博客-三-——百度分享集成/" rel="prev" title="Hexo+Github搭建个人博客(三)——百度分享集成">
+                Hexo+Github搭建个人博客(三)——百度分享集成 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+  <script type="text/javascript">
+	var duoshuoQuery = {short_name:"brightloong"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTcwMy82Mjcx"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="BrightLoong" />
+          <p class="site-author-name" itemprop="name">BrightLoong</p>
+          <p class="site-description motion-element" itemprop="description">Remember what should be remembered, and forget what should be forgotten.Alter what is changeable, and accept what is mutable.</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/BrightLoong/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/c19e2c35c1ae" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:chenlong_cn@163.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope-o"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#发布新的博客"><span class="nav-number">1.</span> <span class="nav-text">发布新的博客</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#站点配置文件-config-yml"><span class="nav-number">2.</span> <span class="nav-text">站点配置文件_config.yml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题更换"><span class="nav-number">3.</span> <span class="nav-text">主题更换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Next主题"><span class="nav-number">4.</span> <span class="nav-text">配置Next主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-配置网站图标"><span class="nav-number">4.1.</span> <span class="nav-text">1. 配置网站图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-首页显示阅读全文按钮"><span class="nav-number">4.2.</span> <span class="nav-text">2. 首页显示阅读全文按钮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-集成多说评论"><span class="nav-number">4.3.</span> <span class="nav-text">3. 集成多说评论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-阅读次数统计"><span class="nav-number">4.4.</span> <span class="nav-text">4. 阅读次数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-集成百度分享"><span class="nav-number">4.5.</span> <span class="nav-text">5. 集成百度分享</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BrightLoong</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("CjvbYwDMyYkFVzn7hH7lHRKj-gzGzoHsz", "7Tr1I9AEuHGOezPTyIy1x1g3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>

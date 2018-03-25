@@ -1,0 +1,1167 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,frequest," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="一.简介frequest：这是一个用JAVA编写的，可以通过文件进行方法调用请求传输的工具。 项目gitgub地址：https://github.com/BrightLoong/frequest">
+<meta name="keywords" content="java,frequest">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java项目间通过文件调用方法工具（frequest）">
+<meta property="og:url" content="https://brightloong.github.io/2017/09/19/Java项目间通过文件调用方法工具/index.html">
+<meta property="og:site_name" content="BrightLoong&#39;s Blog">
+<meta property="og:description" content="一.简介frequest：这是一个用JAVA编写的，可以通过文件进行方法调用请求传输的工具。 项目gitgub地址：https://github.com/BrightLoong/frequest">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://travis-ci.org/BrightLoong/frequest.svg?branch=master">
+<meta property="og:image" content="https://img.shields.io/maven-central/v/io.github.brightloong/frequest.svg">
+<meta property="og:image" content="http://www.javadoc.io/badge/io.github.brightloong/frequest.svg">
+<meta property="og:image" content="https://img.shields.io/hexpm/l/plug.svg">
+<meta property="og:image" content="https://brightloong.github.io/images/frequest-背景.png">
+<meta property="og:image" content="https://brightloong.github.io/images/frequest-思路.png">
+<meta property="og:updated_time" content="2017-10-09T02:33:28.412Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java项目间通过文件调用方法工具（frequest）">
+<meta name="twitter:description" content="一.简介frequest：这是一个用JAVA编写的，可以通过文件进行方法调用请求传输的工具。 项目gitgub地址：https://github.com/BrightLoong/frequest">
+<meta name="twitter:image" content="https://travis-ci.org/BrightLoong/frequest.svg?branch=master">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://brightloong.github.io/2017/09/19/Java项目间通过文件调用方法工具/"/>
+
+
+
+
+
+  <title> Java项目间通过文件调用方法工具（frequest） | BrightLoong's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1c8a47024ddabbbadeed98a78b39934d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">BrightLoong's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://brightloong.github.io/2017/09/19/Java项目间通过文件调用方法工具/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="BrightLoong">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="BrightLoong's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="BrightLoong's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java项目间通过文件调用方法工具（frequest）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-19T21:07:28+08:00">
+                2017-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/09/19/Java项目间通过文件调用方法工具/" class="leancloud_visitors" data-flag-title="Java项目间通过文件调用方法工具（frequest）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://travis-ci.org/BrightLoong/frequest" target="_blank" rel="noopener"><img src="https://travis-ci.org/BrightLoong/frequest.svg?branch=master" alt="Build Status"></a> <a href="http://search.maven.org/#artifactdetails%7Cio.github.brightloong%7Cfrequest%7C1.0%7Cjar" target="_blank" rel="noopener"><img src="https://img.shields.io/maven-central/v/io.github.brightloong/frequest.svg" alt="Maven Central"></a> <a href="http://www.javadoc.io/doc/io.github.brightloong/frequest" target="_blank" rel="noopener"><img src="http://www.javadoc.io/badge/io.github.brightloong/frequest.svg" alt="Javadocs"></a> <a href="http://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank" rel="noopener"><img src="https://img.shields.io/hexpm/l/plug.svg" alt="Hex.pm"></a></p>
+<h2 id="一-简介"><a href="#一-简介" class="headerlink" title="一.简介"></a>一.简介</h2><p>frequest：这是一个用JAVA编写的，可以通过文件进行方法调用请求传输的工具。</p>
+<p>项目gitgub地址：<a href="https://github.com/BrightLoong/frequest" target="_blank" rel="noopener">https://github.com/BrightLoong/frequest</a></p>
+<a id="more"></a>
+<h2 id="二-背景"><a href="#二-背景" class="headerlink" title="二.背景"></a>二.背景</h2><p>之前在项目中遇到一下的需求，如图所示: 甲处要访问部署在乙处的服务serverB(因为数据库在乙处)，不过因为一些限制原因导致甲乙两地的网络不通。但是甲乙两地之间有一个文件传输的系统仅仅可以进行文件的传输交换。</p>
+<p>基于以上的条件，考虑在甲地也搭建一个同样的服务serverA（A和B相同，并都加入对请求的处理），。但是过滤它对service层的调用，将方法调用放入文件中（也就是请求文件中），然后将文件发送到乙地对应目录（文件发送的功能并不由这两个系统负责）。serverB将解析文件的请求，调用对应方法，并将结果也存到文件中发送到甲的服务器serveA处，实现请求的响应。</p>
+<p>这里把拦截本地方法调用，生请求文件，等待远端返回结果和远端响应文件请求并将结果生成问文件的功能抽取出来，并对这部分功能进行了提炼重构，修改了一些问题，形成了工具frquest(file-request)。</p>
+<p><img src="https://brightloong.github.io/images/frequest-背景.png" alt="项目背景"></p>
+<h2 id="三-具体思路"><a href="#三-具体思路" class="headerlink" title="三.具体思路"></a>三.具体思路</h2><p><img src="https://brightloong.github.io/images/frequest-思路.png" alt="实现思路"></p>
+<p><strong>甲：本地服务，需要点去远端服务乙</strong></p>
+<p><strong>乙：远端服务，可自己访问自己，亦可以接收甲的请求</strong></p>
+<ul>
+<li>甲处发起请求，调用了方法，使用aspectj对方法调用进行拦截</li>
+<li>对拦截到的方法进行解析，记录下调用方法名，参数，类，接口等信息，并将信息放入传输bean生成json字符串，写入到文件</li>
+<li>把生成的请求文件发送到指定目录，并等待远端返回结果</li>
+<li>……</li>
+<li>乙远端扫描到请求文件，开始远端方法调用</li>
+<li>对文件进行解析，反过来转为json字符串，再转为传输Bean，从中获取方法名，参数等信息，进行一定的处理。使用反射（invok）调用方法，把得到的结果放入传输Bean中，转为json字符串放入结果文件，发送到指定目录</li>
+<li>……</li>
+<li>甲检测到结果文件，转为json字符串，再转为传输Bean，获取结果信息。</li>
+</ul>
+<h2 id="四-使用"><a href="#四-使用" class="headerlink" title="四. 使用"></a>四. 使用</h2><p>可在java项目中使用。</p>
+<h3 id="1-引用"><a href="#1-引用" class="headerlink" title="1. 引用"></a>1. 引用</h3><ul>
+<li>直接下载jar包，下载地址<a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22frequest%22" target="_blank" rel="noopener">http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22frequest%22</a></li>
+</ul>
+<ul>
+<li><p>使用maven的方式引用</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.github.brightloong<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>frequest<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><strong>注：</strong>如果是java项目需要继承aspectj环境，如果是集成了spring的web项目需要开启aspectj支持</p>
+</blockquote>
+<h3 id="2-配置发送接收文件的目录"><a href="#2-配置发送接收文件的目录" class="headerlink" title="2. 配置发送接收文件的目录"></a>2. 配置发送接收文件的目录</h3><p>请求端的发送目录是指拦截请求生成的请求文件，接收目录是指发送请求后等待接收的结果文件的目录。</p>
+<p>远端的发送目录是值生成的结果文件的发送目录，接收目录是指扫描请求端的请求文件的目录。</p>
+<p>项目中使用了xml配置的方式，格式如下。</p>
+<blockquote>
+<p><strong>注：本工具不负责文件的传输，所以如果想用该工具在本机做测试，可以把远端和请求端的send-path和receive-path交替配置</strong></p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">configs</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">config</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">send-path</span>&gt;</span>d:\send<span class="tag">&lt;/<span class="name">send-path</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">receive-path</span>&gt;</span>d:\receive<span class="tag">&lt;/<span class="name">receive-path</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">config</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--远端可以配置多个config，可能会有多个请求端需要同一个远端响应,请求端配置多个也默认只取第一个--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">config</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">send-path</span>&gt;</span>d:\send<span class="tag">&lt;/<span class="name">send-path</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">receive-path</span>&gt;</span>d:\receive<span class="tag">&lt;/<span class="name">receive-path</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">config</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configs</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-请求端（被拦截端）配置"><a href="#3-请求端（被拦截端）配置" class="headerlink" title="3. 请求端（被拦截端）配置"></a>3. 请求端（被拦截端）配置</h3><ul>
+<li><p>同样首先需要配置收发文件目录（也就是上面说的xml）</p>
+</li>
+<li><p>如果是简单的java项目可使用下面的方式启动。</p>
+<ul>
+<li>继承<code>ServiceProxyInterceptor</code>并且实现<code>serviceAroundImpl()</code>方法</li>
+<li>在实现方法类调用父类的serviceAround()</li>
+<li>标注上<code>@Around</code>注解</li>
+<li>在Around里面加入切入点，<code>PointConstants.POINT_SERVICE</code>是在工具中定义的一个切入点，也就是对具有自定义注解 <code>@ServiceProxy</code>的方法进行拦截，也可以定义自己的切入点。</li>
+<li>启动frequest功能，如下mian()方法中前两行代码所示。</li>
+<li>如下，如果要对say()方法进行拦截，则加上 <code>@ServiceProxy</code>注解(前提是你使用了定义的切入点<code>PointConstants.POINT_SERVICE</code>，并且要保证请求端和远端拥有相同的方法，包括方法所在的类和包)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">extends</span> <span class="title">ServiceProxyInterceptor</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@Around</span>(PointConstants.POINT_SERVICE)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">serviceAroundImpl</span><span class="params">(ProceedingJoinPoint proceedingJoinPoint)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.serviceAround(proceedingJoinPoint);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ServiceProxy</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">say</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">        System.out.println(msg);</span><br><span class="line">        <span class="keyword">return</span> msg;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//setIsRemote(false),设置为请求端，并设置xml的目录。</span></span><br><span class="line">        NormalConfig.getInstance().setXmlConfigPath(<span class="string">"com/test/xml/config.xml"</span>).setIsRemote(<span class="keyword">false</span>);</span><br><span class="line">       <span class="comment">//开启frequest功能</span></span><br><span class="line">        StartEngine.start();</span><br><span class="line">        Test test = <span class="keyword">new</span> Test();</span><br><span class="line">        System.out.println(test.say(<span class="string">"hello"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="4-远端（相应文件请求端）配置"><a href="#4-远端（相应文件请求端）配置" class="headerlink" title="4. 远端（相应文件请求端）配置"></a>4. 远端（相应文件请求端）配置</h3><ul>
+<li><p>同样首先需要配置收发文件目录（也就是上面说的xml）</p>
+</li>
+<li><p>如果是简单的java项目可使用下面的方式启动。如果是web项目，同样也是调用mian()方法中的两行代码，保证其能在合适的地方进行调用，启动功能。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Start</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      	<span class="comment">//setIsRemote(true),设置为远端，并设置xml的目录。</span></span><br><span class="line">        NormalConfig.getInstance().setIsRemote(<span class="keyword">true</span>).setXmlConfigPath(<span class="string">"com/test/xml/config.xml"</span>);</span><br><span class="line">       <span class="comment">//开启frequest功能</span></span><br><span class="line">        StartEngine.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​</p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="5-其他配置"><a href="#5-其他配置" class="headerlink" title="5. 其他配置"></a>5. 其他配置</h3><p>下面的配置具有默认值，所以不进行配置也是可以的。</p>
+<ul>
+<li>sleepTime：休眠时间，单位ms，扫描文件变动的间隔时间和等待远端返回结果的每次等待时间，默认是100ms。</li>
+<li>waitCount：请求端等待远端返回结果的次数，每次间隔时间为sleepTime，所以总共等待时间为waitCount*sleepTime(ms)。默认等待次数是300次</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置休眠时间sleepTime,设置等待结果次数300次</span></span><br><span class="line"> NormalConfig.getInstance().setSleepTime(<span class="number">100</span>).setWaitCount(<span class="number">300</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="五-LICENSE"><a href="#五-LICENSE" class="headerlink" title="五.  LICENSE"></a>五.  LICENSE</h2><p>遵循Apache License 2.0</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat_play.jpg" alt="BrightLoong WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/aliplay.jpg" alt="BrightLoong Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/frequest/" rel="tag"># frequest</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/03/数组-JSON字符串-数组过程中的问题/" rel="next" title="数组->JSON字符串->数组过程中的问题">
+                <i class="fa fa-chevron-left"></i> 数组->JSON字符串->数组过程中的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/09/使用树形结构保存实体/" rel="prev" title="使用树形结构保存实体">
+                使用树形结构保存实体 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+  <script type="text/javascript">
+	var duoshuoQuery = {short_name:"brightloong"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTcwMy82Mjcx"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="BrightLoong" />
+          <p class="site-author-name" itemprop="name">BrightLoong</p>
+          <p class="site-description motion-element" itemprop="description">Remember what should be remembered, and forget what should be forgotten.Alter what is changeable, and accept what is mutable.</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/BrightLoong/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/c19e2c35c1ae" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:chenlong_cn@163.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope-o"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-简介"><span class="nav-number">1.</span> <span class="nav-text">一.简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-背景"><span class="nav-number">2.</span> <span class="nav-text">二.背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-具体思路"><span class="nav-number">3.</span> <span class="nav-text">三.具体思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-使用"><span class="nav-number">4.</span> <span class="nav-text">四. 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-引用"><span class="nav-number">4.1.</span> <span class="nav-text">1. 引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-配置发送接收文件的目录"><span class="nav-number">4.2.</span> <span class="nav-text">2. 配置发送接收文件的目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-请求端（被拦截端）配置"><span class="nav-number">4.3.</span> <span class="nav-text">3. 请求端（被拦截端）配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-远端（相应文件请求端）配置"><span class="nav-number">4.4.</span> <span class="nav-text">4. 远端（相应文件请求端）配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-其他配置"><span class="nav-number">4.5.</span> <span class="nav-text">5. 其他配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五-LICENSE"><span class="nav-number">5.</span> <span class="nav-text">五.  LICENSE</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BrightLoong</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("CjvbYwDMyYkFVzn7hH7lHRKj-gzGzoHsz", "7Tr1I9AEuHGOezPTyIy1x1g3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
