@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title><![CDATA[设计模式——装饰器模式]]></title>
-    <url>%2F2019%2F10%2F15%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%2F</url>
+    <url>%2F2018%2F04%2F22%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[一. 概述装饰器模式（Decorator）,动态地给一个对象添加一些额外的职责，就增加功能来说，装饰器模式比生成子类更为灵活；它允许向一个现有的对象添加新的功能，同时又不改变其结构。 装饰器模式属于结构型模式。 二. UML类图解析装饰器模式的UML类图如下： Component：接口，定义一个抽象接口，真实对象和装饰对象具有相同的接口，以便动态的添加职责。 ConcreteComponent：具体的对象。 Decorator：装饰类，继承了Component,从外类来扩展Component类的功能，并且持有一个构建引用，进行请求转发。 ConcreteDecorator：具体装饰类，用于给实际对象添加职责。 三. 代码实现现在考虑这样一个场景，现在有一个煎饼摊，人们去买煎饼（Pancake）,有些人要加火腿（Ham）的，有些人要加鸡蛋（Egg）的，有些人要加生菜（Lettuce）的，当然土豪可能有啥全给加上^_^。用上述的装饰器模式来进行编码。 1. 定义煎饼接口IPancake123456789101112package io.github.brightloong.design.decorator;/** * 定义一个煎饼接口 * Created by BrightLoong on 2018/4/22. */public interface IPancake &#123; /** * 定义烹饪的操作 */ void cook();&#125; 2. 定义具体的煎饼Pancake1234567891011package io.github.brightloong.design.decorator;/** * 具体的煎饼对象，可用其他装饰类进行动态扩展。 * Created by BrightLoong on 2018/4/22. */public class Pancake implements IPancake&#123; public void cook() &#123; System.out.println("的煎饼"); &#125;&#125; 3. 定义抽象装饰类PancakeDecorator123456789101112131415161718192021package io.github.brightloong.design.decorator;/** * 实现接口的抽象装饰类，建议设置成abstract. * Created by BrightLoong on 2018/4/22. */public abstract class PancakeDecorator implements IPancake &#123; /***/ private IPancake pancake; public PancakeDecorator(IPancake pancake) &#123; this.pancake = pancake; &#125; public void cook() &#123; if (this.pancake != null) &#123; pancake.cook(); &#125; &#125;&#125; 4. 具体装饰类EggDecorator123456789101112131415161718192021package io.github.brightloong.design.decorator;/** * 对煎饼加鸡蛋的装饰类，继承PancakeDecorator，覆盖cook操作 * Created by BrightLoong on 2018/4/22. */public class EggDecorator extends PancakeDecorator &#123; public EggDecorator(IPancake pancake) &#123; super(pancake); &#125; /** * 覆盖cook方法，加入自身的实现，并且调用父类的cook方法，也就是构造函数中 * EggDecorator(IPancake pancake)，这里传入的pancake的cook操作 */ @Override public void cook() &#123; System.out.println("加了一个鸡蛋，"); super.cook(); &#125;&#125; 5. 具体装饰类HamDecorator123456789101112131415161718192021package io.github.brightloong.design.decorator;/** * 对煎饼加火腿的装饰类，继承PancakeDecorator，覆盖cook操作 * Created by BrightLoong on 2018/4/22. */public class HamDecorator extends PancakeDecorator &#123; public HamDecorator(IPancake pancake) &#123; super(pancake); &#125; /** * 覆盖cook方法，加入自身的实现，并且调用父类的cook方法，也就是构造函数中 * EggDecorator(IPancake pancake)，这里传入的pancake的cook操作 */ @Override public void cook() &#123; System.out.println("加了一根火腿，"); super.cook(); &#125;&#125; 6. 具体装饰类LettuceDecorator123456789101112131415161718192021package io.github.brightloong.design.decorator;/** * 对煎饼加生菜的装饰类，继承PancakeDecorator，覆盖cook操作 * Created by BrightLoong on 2018/4/22. */public class LettuceDecorator extends PancakeDecorator &#123; public LettuceDecorator(IPancake pancake) &#123; super(pancake); &#125; /** * 覆盖cook方法，加入自身的实现，并且调用父类的cook方法，也就是构造函数中 * EggDecorator(IPancake pancake)，这里传入的pancake的cook操作 */ @Override public void cook() &#123; System.out.println("加了一颗生菜，"); super.cook(); &#125;&#125; 7. 客户端调用以及结果12345678910111213141516171819202122package io.github.brightloong.design.decorator;/** * 调用客户端 * Created by BrightLoong on 2018/4/22. */public class Client &#123; public static void main(String[] args) &#123; System.out.println("=========我是土豪都给我加上==========="); IPancake pancake = new Pancake(); IPancake pancakeWithEgg = new EggDecorator(pancake); IPancake pancakeWithEggAndHam = new HamDecorator(pancakeWithEgg); IPancake panckeWithEggAndHamAndLettuce = new LettuceDecorator(pancakeWithEggAndHam); panckeWithEggAndHamAndLettuce.cook(); System.out.println("==========我是程序猿，加两个鸡蛋补补=============="); IPancake pancake2 = new Pancake(); IPancake pancakeWithEgg2 = new EggDecorator(pancake2); IPancake pancakeWithTwoEgg = new EggDecorator(pancakeWithEgg2); pancakeWithTwoEgg.cook(); &#125;&#125; 输出结果 123456789=========我是土豪都给我加上===========加了一颗生菜，加了一根火腿，加了一个鸡蛋，的煎饼==========我是程序猿，加两个鸡蛋补补==============加了一个鸡蛋，加了一个鸡蛋，的煎饼 四. 总结关于装饰器模式的使用，在我看来主要有一下几点需要注意的 抽象装饰器和具体被装饰的对象实现同一个接口 抽象装饰器里面要持有接口对象，以便请求传递 具体装饰器覆盖抽象装饰器方法并用super进行调用，传递请求 1. 适用场景 扩展一个类的功能。 动态添加功能，动态撤销。 2. 优点 装饰类和被装饰类都只关心自身的核心业务，实现了解耦。 方便动态的扩展功能，且提供了比继承更多的灵活性。 3. 缺点 如果功能扩展过多，势必产生大量的类。 多层装饰比较复杂。]]></content>
       <categories>
         <category>设计模式</category>
@@ -171,8 +171,8 @@
         <category>建站</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>建站</tag>
+        <tag>hexo</tag>
         <tag>百度分享</tag>
       </tags>
   </entry>
@@ -184,8 +184,8 @@
         <category>建站</category>
       </categories>
       <tags>
-        <tag>建站</tag>
         <tag>hexo配置</tag>
+        <tag>建站</tag>
         <tag>Next主题</tag>
       </tags>
   </entry>
@@ -197,8 +197,8 @@
         <category>建站</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>建站</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
