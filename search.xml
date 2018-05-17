@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[设计模式——职责链模式]]></title>
+    <url>%2F2018%2F05%2F17%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[一. 概述职责链模式（Chain of Responsibility）：使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止（个人认为并不一定非要满足这种情况，也可以是每个对象可以处理请求的一部分，或者是下一个处理对象需要上一个处理对象首先完成一些工作，将请求沿链一步一步传递，知道请求最终处理完成，既同时兼顾请求处理和请求转发，当然这个仅仅是个人理解，可能不正确，还请谅解）。 使用职责链模式，发起请求的客户端并不用知道是链中的哪一个对象最终处理了这个请求，所以这样系统的更改可以在不影响客户端的情况下动态地重新组织和分配责任。 职责链模式属于行为型模式。 二. UML类图解析职责链模式的UML类图如下： Handler：处理请求的抽象类，持有一个Handler引用作为后继者，setSuccessor(Handler handler)用于设置后继者；handleRequest(Request request)是处理请求的抽象方法，Request是具体的请求，按照自己的需求定义，可以简单的基本类型，集合类，也可以是自定义的类，等待子类具体实现。 ConcreteHandler1、ConcreteHandler2：具体处理者类，处理客户端请求，也可以访问后继者，按照职责链模式的定义，要么处理请求，要么转发请求，不存在两者同时兼顾的行为。 三. 代码实现用向银行贷款作为例子，申请的贷款金额不同需要不同等级的银行人员进行授权。 贷款请求类——LoanRequest首先创建一个贷款请求，具有基本的贷款金额和贷款人信息。 123456789101112131415161718192021222324252627282930313233343536373839package io.github.brightloong.design.chain;/** * 贷款请求类 * Created by BrightLoong on 2018/5/17. */public class LoanRequest &#123; /**贷款金额*/ private Long loanAmount; /**贷款人姓名*/ private String name; /** * 构造函数. * @param loanAmount * @param name */ public LoanRequest(Long loanAmount, String name) &#123; this.loanAmount = loanAmount; this.name = name; &#125; public Long getLoanAmount() &#123; return loanAmount; &#125; public void setLoanAmount(Long loanAmount) &#123; this.loanAmount = loanAmount; &#125; public String getName() &#123; return name; &#125; public void setName(String name) &#123; this.name = name; &#125;&#125; 抽象处理接口——BankStaff123456789101112131415161718192021222324package io.github.brightloong.design.chain;/** * 请求处理抽象类. * Created by BrightLoong on 2018/5/17. */public abstract class BankStaff &#123; /**持有的后继者的引用*/ private BankStaff nextBankStaff; /**设置后继者*/ public void setNextBankStaff(BankStaff bankStaff) &#123; this.nextBankStaff = bankStaff; &#125; /**获取后继者*/ public BankStaff getNextBankStaff() &#123; return this.nextBankStaff; &#125; /**抽象处理方法，等待子类实现*/ public abstract void handleLoan(LoanRequest request);&#125; 银行柜员实现——BankTeller12345678910111213141516package io.github.brightloong.design.chain;/** * Created by BrightLoong on 2018/5/17. */public class BankTeller extends BankStaff &#123; public void handleLoan(LoanRequest request) &#123; if (request.getLoanAmount() &lt;= 20000) &#123; System.out.println(request.getName() + "申请贷款：" + request.getLoanAmount() + "元，" + "由银行柜员处理。" ); &#125; else if (getNextBankStaff() != null) &#123; getNextBankStaff().handleLoan(request); &#125; else &#123; System.out.println("无法处理的贷款请求。"); &#125; &#125;&#125; 银行经理实现——BankManager12345678910111213141516package io.github.brightloong.design.chain;/** * Created by BrightLoong on 2018/5/17. */public class BankManager extends BankStaff&#123; public void handleLoan(LoanRequest request) &#123; if (request.getLoanAmount() &lt;= 100000) &#123; System.out.println(request.getName() + "申请贷款：" + request.getLoanAmount() + "元，" + "由银行经理处理。" ); &#125; else if (getNextBankStaff() != null) &#123; getNextBankStaff().handleLoan(request); &#125; else &#123; System.out.println("无法处理的贷款请求。"); &#125; &#125;&#125; 银行行长实现——BankPresident12345678910package io.github.brightloong.design.chain;/** * Created by BrightLoong on 2018/5/17. */public class BankPresident extends BankStaff &#123; public void handleLoan(LoanRequest request) &#123; System.out.println(request.getName() + "申请贷款：" + request.getLoanAmount() + "元，" + "由银行行长处理。" ); &#125;&#125; 客户端调用和输出12345678910111213141516171819202122package io.github.brightloong.design.chain;/** * Created by BrightLoong on 2018/5/17. */public class Client &#123; public static void main(String[] args) &#123; //构造职责链 BankStaff bankTeller = new BankTeller(); BankStaff bankManager = new BankManager(); BankStaff bankPresident = new BankPresident(); bankTeller.setNextBankStaff(bankManager); bankManager.setNextBankStaff(bankPresident); //构造请求 LoanRequest request = new LoanRequest(10000L, "小明"); bankTeller.handleLoan(request); LoanRequest request2 = new LoanRequest(200000L, "老王"); bankTeller.handleLoan(request2); &#125;&#125; 输出结果: 12小明申请贷款：10000元，由银行柜员处理。老王申请贷款：200000元，由银行行长处理。 四. 总结使用场景 有多个对象可以处理同一个请求，具体哪个对象处理该请求由运行时刻自动确定。 在不明确接收者的情况下，向多个对象中的一个处理提交一个请求。 可动态指定一组对象处理请求。 优点 实现了请求发送者和接收者的解耦，降低了耦合度。 方便扩展，可以方便的增加请求处理类。 可以动态的设置请求处理类的顺序，比较灵活。 接收者和发送者都没有对方的明确信息，且链中的对象自己也并不知道链的结构。结果是职责链可简化对象的相互连接，它们仅需要保持一个指向后继者的引用。 缺点 请求有可能到了链的末端都得不到处理，或者因为没有正确配置而得不到处理。 如果要配置比较复杂的链会导致性能受到影响，并且难于调试，易于出错 参考：http://www.runoob.com/design-pattern/chain-of-responsibility-pattern.html]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[设计模式——策略模式]]></title>
     <url>%2F2018%2F05%2F06%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[一. 概述考虑如下情景，超市搞打折活动，对于消费额度不同提供不同的折扣，比如：满200打9折，满400打8折之类的；或者旅行出游的情景，可以考虑骑自行车，坐汽车、火车、飞机等等。 如何实现上面描述的情景，当然最直接想到的是使用if…else进行判断，执行不同的操作，但是如果在你实现完后有添加了其他的活动或者出行方式呢，这个时候你需要在客户端直接修改代码。 当然，也可能想到之前提到过的工厂模式，但是工厂模式主要是解决对象的创建问题，而打折方式，出行方式这种行为都属于一系列的算法，如何让算法和对象分开来，使得算法可以独立于调用它的客户端变化就是策略模式解决的问题。 策略模式(Strategy) 定义了算法家族，分别封装起来，让它们之间可以相互替换，此模式让算法的变化，不会影响到使用算法的客户。 策略模式属于对象的行为模式。 二. UML类图解析策略模式的UML图如下所示： IStrategy：策略接口类，定义所有支持的算法的公共接口。（如果算法存在公共的实现逻辑，可以采用抽象类，以继承的方式实现算法，可以把公共代码移到父类，避免代码重复） StrategyA、StrategyB：具体策略类，封装了具体的算法或行为，实现IStategy。 Context：Context上下文，其中定义一个方法来进行配置，维护一个对IStrategy的引用。 三. 代码实现就用上面提到的旅游出行来作为具体的场景用代码进行实现。 策略接口——ITravelStrategy12345678package io.github.brightloong.design.strategy;/** * Created by BrightLoong on 2018/5/6. */public interface ITravelStrategy &#123; void travel();&#125; 策略实现——AirPlaneStrategy12345678910package io.github.brightloong.design.strategy;/** * Created by BrightLoong on 2018/5/6. */public class AirPlaneStrategy implements ITravelStrategy &#123; public void travel() &#123; System.out.println("坐飞机出游。"); &#125;&#125; 策略实现——TrainStrategy12345678910package io.github.brightloong.design.strategy;/** * Created by BrightLoong on 2018/5/6. */public class TrainStrategy implements ITravelStrategy &#123; public void travel() &#123; System.out.println("坐火车出游。"); &#125;&#125; 上下文环境类——TravelContext12345678910111213141516package io.github.brightloong.design.strategy;/** * Created by BrightLoong on 2018/5/6. */public class TravelContext &#123; private ITravelStrategy travelStrategy; public TravelContext(ITravelStrategy travelStrategy) &#123; this.travelStrategy = travelStrategy; &#125; public void travel() &#123; travelStrategy.travel(); &#125;&#125; 客户端调用——Tourist1234567891011package io.github.brightloong.design.strategy;/** * Created by BrightLoong on 2018/5/6. */public class Tourist &#123; public static void main(String[] args) &#123; TravelContext travelContext = new TravelContext(new AirPlaneStrategy()); travelContext.travel(); &#125;&#125; 输出 1坐飞机出游。 四. 扩展在上面的客户端调用中，发现需要客户端了解所有的策略实现，并且需要客户端自己判断使用哪一种策略，如果想将这个判断从客户端移走，这个时候可以将策略模式和简单工厂模式进行结合，修改后的TravelContext如下： 1234567891011121314151617181920212223242526package io.github.brightloong.design.strategy;/** * Created by BrightLoong on 2018/5/6. */public class TravelContextFactory &#123; private ITravelStrategy travelStrategy; /** * 这里的参数最好用枚举进行定义，这样不会出现传入不存在的参数. * @param travelType */ public TravelContextFactory(String travelType) &#123; if ("airPlaen".equals(travelType)) &#123; travelStrategy = new AirPlaneStrategy(); &#125; else if ("train".equals(travelType)) &#123; travelStrategy = new TrainStrategy(); &#125; else &#123; throw new RuntimeException("不支持的策略"); &#125; &#125; public void travel() &#123; travelStrategy.travel(); &#125;&#125; 五.使用场景 如果在一个系统里面有许多类，它们之间的区别仅在于它们的行为，那么使用策略模式可以动态地让一个对象在许多行为中选择一种行为。 一个系统需要动态地在几种算法中选择一种，需要在不同情况下使用不同的策略(算法)，或者策略还可能在未来用其它方式来实现。 对客户隐藏具体策略(算法)的实现细节，彼此完全独立。 出现同一抽象类有多个子类，并且使用判断逻辑if-else之类的来判断选择具体子类。 六. 总结优点 上面提到了，并不一定要使用策略接口，也可以使用抽象类，恰当使用继承可以把公共的代码移到父类里面，从而避免代码重复。 具有良好的扩展性，新增算法只用添加策略实现。 不同算法之间可以自由切换。 使用策略模式可以避免使用多重条件(if-else)语句。 缺点 客户端必须知道所有的策略类，并自行决定使用哪一个策略类。策略模式将责任交给了客户端去承担。 随着策略的不断增加，将产生越来越多的策略类，导致了类膨胀。]]></content>
@@ -193,8 +204,8 @@
         <category>建站</category>
       </categories>
       <tags>
-        <tag>建站</tag>
         <tag>hexo</tag>
+        <tag>建站</tag>
         <tag>百度分享</tag>
       </tags>
   </entry>
@@ -206,8 +217,8 @@
         <category>建站</category>
       </categories>
       <tags>
-        <tag>hexo配置</tag>
         <tag>建站</tag>
+        <tag>hexo配置</tag>
         <tag>Next主题</tag>
       </tags>
   </entry>
@@ -219,8 +230,8 @@
         <category>建站</category>
       </categories>
       <tags>
-        <tag>建站</tag>
         <tag>hexo</tag>
+        <tag>建站</tag>
       </tags>
   </entry>
   <entry>
