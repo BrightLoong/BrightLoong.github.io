@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="UML," />
+  <meta name="keywords" content="设计模式," />
 
 
 
@@ -87,31 +87,22 @@
 
 
 
-<meta name="description" content="UML全称Unified Modeling Language 又称统一建模语言或标准建模语言。我们再学习各种框架或者设计模式之类的时候经常会看到UML类图，这里将UML类图一些基本点做一个记录。">
-<meta name="keywords" content="UML">
+<meta name="description" content="一. 概述适配器模式（Adapter） ，将一个类的接口转换为客户希望的另一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那个类可以一起工作。">
+<meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="简介UML类图">
-<meta property="og:url" content="https://brightloong.github.io/2017/10/18/简介UML类图/index.html">
+<meta property="og:title" content="设计模式——适配器模式">
+<meta property="og:url" content="https://brightloong.github.io/2018/06/06/设计模式——适配器模式/index.html">
 <meta property="og:site_name" content="BrightLoong&#39;s Blog">
-<meta property="og:description" content="UML全称Unified Modeling Language 又称统一建模语言或标准建模语言。我们再学习各种框架或者设计模式之类的时候经常会看到UML类图，这里将UML类图一些基本点做一个记录。">
+<meta property="og:description" content="一. 概述适配器模式（Adapter） ，将一个类的接口转换为客户希望的另一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那个类可以一起工作。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://brightloong.github.io/images/UML/title.png">
-<meta property="og:image" content="https://brightloong.github.io/images/UML/all.png">
-<meta property="og:image" content="https://brightloong.github.io/images/UML/note.png">
-<meta property="og:image" content="https://brightloong.github.io/images/UML/class.png">
-<meta property="og:image" content="https://brightloong.github.io/images/UML/interface.png">
-<meta property="og:image" content="https://brightloong.github.io/images/UML/realization.png">
-<meta property="og:image" content="https://brightloong.github.io/images/UML/generalization.png">
-<meta property="og:image" content="https://brightloong.github.io/images/UML/Association.png">
-<meta property="og:image" content="https://brightloong.github.io/images/UML/DirectedAssociation.png">
-<meta property="og:image" content="https://brightloong.github.io/images/UML/aggregation.png">
-<meta property="og:image" content="https://brightloong.github.io/images/UML/composotion.png">
-<meta property="og:image" content="https://brightloong.github.io/images/UML/Dependecy.png">
-<meta property="og:updated_time" content="2017-10-18T09:05:47.917Z">
+<meta property="og:image" content="https://brightloong.github.io/images/design-pattern/adapter/adapter.jpg">
+<meta property="og:image" content="https://brightloong.github.io/images/design-pattern/adapter/adapter.png">
+<meta property="og:image" content="https://brightloong.github.io/images/design-pattern/adapter/classAdapter.png">
+<meta property="og:updated_time" content="2018-06-06T14:45:07.297Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="简介UML类图">
-<meta name="twitter:description" content="UML全称Unified Modeling Language 又称统一建模语言或标准建模语言。我们再学习各种框架或者设计模式之类的时候经常会看到UML类图，这里将UML类图一些基本点做一个记录。">
-<meta name="twitter:image" content="https://brightloong.github.io/images/UML/title.png">
+<meta name="twitter:title" content="设计模式——适配器模式">
+<meta name="twitter:description" content="一. 概述适配器模式（Adapter） ，将一个类的接口转换为客户希望的另一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那个类可以一起工作。">
+<meta name="twitter:image" content="https://brightloong.github.io/images/design-pattern/adapter/adapter.jpg">
 
 
 
@@ -139,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://brightloong.github.io/2017/10/18/简介UML类图/"/>
+  <link rel="canonical" href="https://brightloong.github.io/2018/06/06/设计模式——适配器模式/"/>
 
 
 
 
 
-  <title> 简介UML类图 | BrightLoong's Blog </title>
+  <title> 设计模式——适配器模式 | BrightLoong's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -305,7 +296,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://brightloong.github.io/2017/10/18/简介UML类图/">
+  <link itemprop="mainEntityOfPage" href="https://brightloong.github.io/2018/06/06/设计模式——适配器模式/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="BrightLoong">
@@ -329,7 +320,7 @@
             
             
               
-                简介UML类图
+                设计模式——适配器模式
               
             
           </h1>
@@ -344,8 +335,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-18T16:56:32+08:00">
-                2017-10-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-06T22:44:14+08:00">
+                2018-06-06
               </time>
             
 
@@ -367,8 +358,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/UML/" itemprop="url" rel="index">
-                    <span itemprop="name">UML</span>
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
                   </a>
                 </span>
 
@@ -384,7 +375,7 @@
 
           
           
-             <span id="/2017/10/18/简介UML类图/" class="leancloud_visitors" data-flag-title="简介UML类图">
+             <span id="/2018/06/06/设计模式——适配器模式/" class="leancloud_visitors" data-flag-title="设计模式——适配器模式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -413,42 +404,48 @@
       
 
       
-        <p><img src="https://brightloong.github.io/images/UML/title.png" alt="all"><br>UML全称<strong>Unified Modeling Language </strong>又称统一建模语言或标准建模语言。我们再学习各种框架或者设计模式之类的时候经常会看到UML类图，这里将UML类图一些基本点做一个记录。<a id="more"></a></p>
+        <p><img src="https://brightloong.github.io/images/design-pattern/adapter/adapter.jpg" alt="adapter"></p>
+<h3 id="一-概述"><a href="#一-概述" class="headerlink" title="一. 概述"></a>一. 概述</h3><p><code>适配器模式（Adapter）</code> ，将一个类的接口转换为客户希望的另一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那个类可以一起工作。<a id="more"></a></p>
+<p>关于适配器，现实生活中也有很多例子，比如电源适配器，中国家庭供电为220V，而手机一般需求是在5V，这里220V就是不兼容的那个类，但我们又需要其供电，我们用电源适配器将其转为5V，使手机能正常充电。还有各种转接头（HDMI转接头，type-c转接头等），顺便说一下，Java中的IO中可以看到适配器模式的使用。</p>
 <blockquote>
-<p>在文章中所涉及到的UML类图是使用<a href="https://staruml.en.softonic.com/" target="_blank" rel="noopener">starUML</a>工具创建，使用其他工具创建会有所不同。</p>
+<p>适配器模式属于结构型模式 </p>
 </blockquote>
-<h3 id="总体印象"><a href="#总体印象" class="headerlink" title="总体印象"></a>总体印象</h3><p><img src="https://brightloong.github.io/images/UML/all.png" alt="all"></p>
-<p>上面的UML类图基本展示了UML类图的大部分元素，以及类与类之间的关系，下面将对其一一进行解释。</p>
-<h3 id="NOTE"><a href="#NOTE" class="headerlink" title="NOTE"></a>NOTE</h3><p><img src="https://brightloong.github.io/images/UML/note.png" alt="note"></p>
-<p>UML类图注解的表示方法，如上右半部所示。</p>
-<h3 id="类结构表示"><a href="#类结构表示" class="headerlink" title="类结构表示"></a>类结构表示</h3><p><img src="https://brightloong.github.io/images/UML/class.png" alt="class"><img src="https://brightloong.github.io/images/UML/interface.png" alt="interface"></p>
-<p>类的表示方法如图，一般分为三层，从上到下依次为类名、属性和方法。接口表示和类的表示类似，只是在上面标明了是interface（这只是表示接口的一种方式，并且不同的工具展现方式可能不同，还有一种棒棒糖的形式，就是一个圆加一条竖线，并不常见，所以也不过多介绍），并且这里我隐藏了属性层。如果是抽象类，在使用starUML工具创建的时候类名会以斜线表示。关于类的表示有以下几点：</p>
+<h3 id="二-UML类图解析"><a href="#二-UML类图解析" class="headerlink" title="二. UML类图解析"></a>二. UML类图解析</h3><p>在GoF的设计模式中，适配器模式讲了两种类型——类适配器模式和对象适配器模式。由于类适配器模式需要继承被适配的类，同时有可能需要继承目标类，而Java又不支持多重继承，<strong>所以平时常用的是对象适配器模式</strong>。下面也会对类适配器模式进行简单的介绍。</p>
+<h4 id="对象适配器模式"><a href="#对象适配器模式" class="headerlink" title="对象适配器模式"></a>对象适配器模式</h4><p><img src="https://brightloong.github.io/images/design-pattern/adapter/adapter.png" alt="adapter"></p>
 <ul>
-<li>+：public，-：private，#：protected</li>
-<li>属性冒号后的内容表示属性的类型</li>
-<li>方法冒号后的内容表示属性的返回值</li>
-<li>类型说明并不是必须的</li>
+<li>Client：客户端。</li>
+<li>Target：目标接口，客户端所期待的目标接口（可以是具体的或抽象的类，也可以是接口）。</li>
+<li>Adapter：适配器，实现目标接口，通过在内部持有一个Adaptee引用，把源接口（Adaptee）转成目标接口（Target）。</li>
+<li>Adaptee：需要适配的类。</li>
 </ul>
-<h3 id="类关系表示"><a href="#类关系表示" class="headerlink" title="类关系表示"></a>类关系表示</h3><h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p><img src="https://brightloong.github.io/images/UML/realization.png" alt="realization"></p>
-<p>实现(Realization)，用一个带空心三角箭头的虚线来表示。用来表示接口和实现类的关系。比如：Plane(飞机)和Car(汽车)都实现了接口IVehicle(交通工具)。</p>
-<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p><img src="https://brightloong.github.io/images/UML/generalization.png" alt="Generalization"></p>
-<p>继承(Generalization，也称为泛化关系)，用一个带空心三角箭头的实线来表示。表示父类与子类之间的关系。比如：Trunck(卡车)和Bus(公交车)都继承自父类Car(汽车)。</p>
-<h4 id="关联关系"><a href="#关联关系" class="headerlink" title="关联关系"></a>关联关系</h4><p>关联(Association)，关联关系分为以下几种</p>
+<h4 id="类适配器模式"><a href="#类适配器模式" class="headerlink" title="类适配器模式"></a>类适配器模式</h4><p><img src="https://brightloong.github.io/images/design-pattern/adapter/classAdapter.png" alt="adapter"></p>
+<p>基本和对象适配器模式相同，唯一不同的是适配器（Adapter）不在持有Adaptee的引用，而采用继承Adaptee的方式，实现把源接口（Adaptee）转成目标接口（Target）。</p>
+<h3 id="三-代码实现"><a href="#三-代码实现" class="headerlink" title="三. 代码实现"></a>三. 代码实现</h3><p>就基于上面的电源适配器场景来进行代码实现。目标接口——MobileCharge（需要5V电流），需要被适配的22V电源——Power220V，电源适配器——PowerAdapter</p>
+<h4 id="目标接口——MobileCharge"><a href="#目标接口——MobileCharge" class="headerlink" title="目标接口——MobileCharge"></a>目标接口——MobileCharge</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.github.brightloong.design.adapter;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 充电接口</span></span><br><span class="line"><span class="comment"> * Created by BrightLoong on 2018/6/6.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MobileCharge</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">outPut5V</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="需要被适配的22V电源——Power220V"><a href="#需要被适配的22V电源——Power220V" class="headerlink" title="需要被适配的22V电源——Power220V"></a>需要被适配的22V电源——Power220V</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.github.brightloong.design.adapter;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 需要被适配的类</span></span><br><span class="line"><span class="comment"> * Created by BrightLoong on 2018/6/6.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Power220V</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">outPut220V</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"输出220V电流"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="电源适配器——PowerAdapter-对象适配器模式"><a href="#电源适配器——PowerAdapter-对象适配器模式" class="headerlink" title="电源适配器——PowerAdapter(对象适配器模式)"></a>电源适配器——PowerAdapter(对象适配器模式)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.github.brightloong.design.adapter;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对象适配器</span></span><br><span class="line"><span class="comment"> * Created by BrightLoong on 2018/6/6.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PowerAdapter</span> <span class="keyword">implements</span> <span class="title">MobileCharge</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//需要适配的220V电源</span></span><br><span class="line">    <span class="keyword">private</span> Power220V power220V;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PowerAdapter</span><span class="params">(Power220V power220V)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.power220V = power220V;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">outPut5V</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        power220V.outPut220V();</span><br><span class="line">        System.out.println(<span class="string">"电源适配器转换"</span>);</span><br><span class="line">        System.out.println(<span class="string">"输出5V电流"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="使用类适配模式的电源适配器——PowerAdapter2"><a href="#使用类适配模式的电源适配器——PowerAdapter2" class="headerlink" title="使用类适配模式的电源适配器——PowerAdapter2"></a>使用类适配模式的电源适配器——PowerAdapter2</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.github.brightloong.design.adapter;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 类适配器，使用继承的方式</span></span><br><span class="line"><span class="comment"> * Created by BrightLoong on 2018/6/6.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PowerAdapter2</span> <span class="keyword">extends</span> <span class="title">Power220V</span> <span class="keyword">implements</span> <span class="title">MobileCharge</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">outPut5V</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.outPut220V();</span><br><span class="line">        System.out.println(<span class="string">"电源适配器转换"</span>);</span><br><span class="line">        System.out.println(<span class="string">"输出5V电流"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="客户端调用和输出"><a href="#客户端调用和输出" class="headerlink" title="客户端调用和输出"></a>客户端调用和输出</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.github.brightloong.design.adapter;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by BrightLoong on 2018/6/6.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        MobileCharge mobileCharge = <span class="keyword">new</span> PowerAdapter(<span class="keyword">new</span> Power220V());</span><br><span class="line">        System.out.println(<span class="string">"手机充电"</span>);</span><br><span class="line">        mobileCharge.outPut5V();</span><br><span class="line">        System.out.println(<span class="string">"-------------------"</span>);</span><br><span class="line">        <span class="comment">//类适配器模式</span></span><br><span class="line">        MobileCharge mobileCharge2 = <span class="keyword">new</span> PowerAdapter2();</span><br><span class="line">        mobileCharge2.outPut5V();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">手机充电</span><br><span class="line">输出220V电流</span><br><span class="line">电源适配器转换</span><br><span class="line">输出5V电流</span><br><span class="line">-------------------</span><br><span class="line">输出220V电流</span><br><span class="line">电源适配器转换</span><br><span class="line">输出5V电流</span><br></pre></td></tr></table></figure>
+<h3 id="四-总结"><a href="#四-总结" class="headerlink" title="四. 总结"></a>四. 总结</h3><h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><blockquote>
+<p>注意：适配器模式是更多的为了解决已有的在运行的项目中的问题，而不是解决开发阶段的项目，开发阶段的项目应该进行良好的设计。</p>
+</blockquote>
 <ul>
-<li>自关联：用一头带箭头的实线表示，自己指向自己</li>
-<li>单向关联：用一头带箭头的实线表示，箭头指向被关联类</li>
-<li>双向关联：用一条实线表示，或者使用双箭头</li>
+<li>系统的数据和行为都正确，但接口不符时。</li>
+<li>希望复用一些现存的类，但是接口又与复用环境要求不一致的情况。</li>
+<li>想使用一个已经存在的类，但是它的接口，也就是它的方法和你的要求不同时。</li>
 </ul>
-<p>关联关系表示类与类之间的联系，是同一层次上的关系，<strong>它不像依赖关系具有偶然性和临时性</strong>。一般情况是关联类引用被关联类作为全局变量。如下Human持有Name。</p>
-<p>大多数的关联关系都是单向的。</p>
-<p><img src="https://brightloong.github.io/images/UML/Association.png" alt="Association"></p>
-<p><img src="https://brightloong.github.io/images/UML/DirectedAssociation.png" alt="DirectedAssociation"></p>
-<h4 id="聚合关系"><a href="#聚合关系" class="headerlink" title="聚合关系"></a>聚合关系</h4><p><img src="https://brightloong.github.io/images/UML/aggregation.png" alt="class"></p>
-<p>聚合(Aggregation)，用一头是空心菱形的直线表示(有些时候是一头为空心菱形，一头为箭头的实线)。聚合也是关联关系的一种，是<strong>整体和部分</strong>之间的关系，也就是has-a的关系(很多地方has-a，contains-a已经比较混乱，我理解上来看是has-a)，整体包含部分，但是部分脱离整体后依然可以单独存在。如上：Car(汽车)包含Engine(引擎)，但是Engine脱离了Car依然可以独立存在。</p>
-<h4 id="组合关系"><a href="#组合关系" class="headerlink" title="组合关系"></a>组合关系</h4><p><img src="https://brightloong.github.io/images/UML/composotion.png" alt="Composition"></p>
-<p>组合(Composition)，用一头是实心菱形的直线表示(有些时候是一头为实心菱形，一头为箭头的实线)。组合同样是一种关联关系，也同样是<strong>整体和部分之间的关系</strong>，我把它理解为contains-a的关系。<strong>和聚合的区别在于，部分脱离整体和无法单独存在，整体和部分具有相同的生命周期，整体不存在了，部分也就消失了。</strong>如上：Human(人类)包含Head(头)和Body(身体)，头和身体并不能单独存在。</p>
-<h4 id="依赖关系"><a href="#依赖关系" class="headerlink" title="依赖关系"></a>依赖关系</h4><p><img src="https://brightloong.github.io/images/UML/Dependecy.png" alt="(Dependency"></p>
-<p>依赖(Dependency)，用一头带箭头的虚线表示。表示类与类之间，一个类依赖于另一个类的定义。被依赖类的变化将会引起依赖类的变化。在java中依赖关系通常体现为，一个类使用另一个类作为局部变量，方法参数或静态方法调用，表示为use-a。如上，Engine的方法startEngine()方法使用Gasoline(汽油)作为参数，可能是调用了Gasoline中的burn()方法。</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>因为适配器模式可以让不满足要求的类满足要求，所以提高了类的复用。</li>
+<li>使目标类和适配者类解耦，增加了类的透明性，通过引入一个适配器类来重用现有的适配者类，无需修改原有结构。 </li>
+<li>具有较强的灵活性和扩展性，可以很方便的增加适配器。</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>一次最多只能适配一个适配者类，不能同时适配多个适配者。 （类适配器存在的问题，因为不能多重继承，考虑使用对象适配器，持有多个适配者）</li>
+<li>目标抽象类只能为接口，不能为类，其使用有一定的局限性。(类适配器存在的问题，因为不能多重继承，如果是类，考虑继承而不是实现) </li>
+<li>对象适配器</li>
+</ul>
 
       
     </div>
@@ -493,7 +490,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/UML/" rel="tag"># UML</a>
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
           
         </div>
       
@@ -506,8 +503,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/09/使用树形结构保存实体/" rel="next" title="使用树形结构保存实体">
-                <i class="fa fa-chevron-left"></i> 使用树形结构保存实体
+              <a href="/2018/05/28/ThreadLocal源码解析/" rel="next" title="ThreadLocal源码解析">
+                <i class="fa fa-chevron-left"></i> ThreadLocal源码解析
               </a>
             
           </div>
@@ -515,10 +512,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/09/设计模式——模板方法模式/" rel="prev" title="设计模式——模板方法模式">
-                设计模式——模板方法模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -709,7 +702,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#总体印象"><span class="nav-number">1.</span> <span class="nav-text">总体印象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NOTE"><span class="nav-number">2.</span> <span class="nav-text">NOTE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类结构表示"><span class="nav-number">3.</span> <span class="nav-text">类结构表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类关系表示"><span class="nav-number">4.</span> <span class="nav-text">类关系表示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现"><span class="nav-number">4.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继承"><span class="nav-number">4.2.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关联关系"><span class="nav-number">4.3.</span> <span class="nav-text">关联关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚合关系"><span class="nav-number">4.4.</span> <span class="nav-text">聚合关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组合关系"><span class="nav-number">4.5.</span> <span class="nav-text">组合关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖关系"><span class="nav-number">4.6.</span> <span class="nav-text">依赖关系</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-概述"><span class="nav-number">1.</span> <span class="nav-text">一. 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-UML类图解析"><span class="nav-number">2.</span> <span class="nav-text">二. UML类图解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对象适配器模式"><span class="nav-number">2.1.</span> <span class="nav-text">对象适配器模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类适配器模式"><span class="nav-number">2.2.</span> <span class="nav-text">类适配器模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-代码实现"><span class="nav-number">3.</span> <span class="nav-text">三. 代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#目标接口——MobileCharge"><span class="nav-number">3.1.</span> <span class="nav-text">目标接口——MobileCharge</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#需要被适配的22V电源——Power220V"><span class="nav-number">3.2.</span> <span class="nav-text">需要被适配的22V电源——Power220V</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#电源适配器——PowerAdapter-对象适配器模式"><span class="nav-number">3.3.</span> <span class="nav-text">电源适配器——PowerAdapter(对象适配器模式)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用类适配模式的电源适配器——PowerAdapter2"><span class="nav-number">3.4.</span> <span class="nav-text">使用类适配模式的电源适配器——PowerAdapter2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端调用和输出"><span class="nav-number">3.5.</span> <span class="nav-text">客户端调用和输出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-总结"><span class="nav-number">4.</span> <span class="nav-text">四. 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景"><span class="nav-number">4.1.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">4.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">4.3.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></div>
             
 
           </div>
