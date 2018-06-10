@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Java中CAS学习记录]]></title>
+    <url>%2F2018%2F06%2F10%2FJava%E4%B8%ADCAS%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%2F</url>
+    <content type="text"><![CDATA[CAS在网上已经有数不清的文章，这里只是自己在学习过程中的一个记录，方便以后查阅。 一. 概述Java中CAS全称Compare and Swap，也就是比较交换。在Java同步工具中，经常可以看到CAS的身影。在Doug Lea大神提供的J.U.C并发包中，可以说CAS是实现整个J.U.C包的基石。 在CAS方法中，有三个操作数，当前的内存值V，旧的预期值A，要修改的新值B。当且仅当预期值A和内存值V相等时，将内存值V修改为B，否则什么都不做。 因为CAS会在进行修改的时候对当前内存值进行检测，所以当有其他线程修改了变量值的时候，这个时候当前线程的修改就会失败，以此来保证了“读-修改-写”操作的原子性。 三. CAS使用先来看下面的代码： 123456789101112131415161718192021222324252627282930313233343536373839404142434445package io.github.brightloong.lab.concurrent.cas;import java.util.concurrent.TimeUnit;/** * NoUseCAS class * * @author BrightLoong * @date 2018/6/10 */public class NoUseCAS &#123; private volatile int value = 0; public void add() &#123; value++; &#125; public int getValue() &#123; return value; &#125; public static void main(String[] args) &#123; NoUseCAS noUseCAS = new NoUseCAS(); for (int i = 0; i &lt; 10; i++) &#123; new Thread(new Runnable() &#123; @Override public void run() &#123; try &#123; TimeUnit.MILLISECONDS.sleep(500); &#125; catch (InterruptedException e) &#123; e.printStackTrace(); &#125; noUseCAS.add(); &#125; &#125;).start(); &#125; try &#123; TimeUnit.SECONDS.sleep(2); &#125; catch (InterruptedException e) &#123; e.printStackTrace(); &#125; System.out.println("最后结果：" + noUseCAS.getValue()); &#125;&#125; 输出结果每次都可能不一样，而不是每次都输出10。通过volatile虽然保证了变量线程之间的可见性，但是并不能保证“++”操作的原子性，因为“++”操作是先获取到值，然后再执行“+”操作，找到NoUseCAS.class文件，执行javap -c NoUseCAS.class 得到字节码，找到“add()”方法的字节码如下： 123456789public void add(); Code: 0: aload_0 1: dup 2: getfield #2 // Field value:I 5: iconst_1 6: iadd 7: putfield #2 // Field value:I 10: return 可以看到getfield获取当前的值，iadd执行加操作，putfield赋值，如果这个时候线程A在执行完getfield后，拿到值为2，同时有另一个线程B将值修改为3，这个时候线程A继续执行操作的话最后会返回结果3，这就和期望的值不一样了。 如何解决可以使用AtomicInteger来解决上面的问题，它提供了getAndIncrement()方法来替代“++”操作，并且保证了该操作的原子性， 代码片段： 12345678910111213141516171819202122232425public class AtomicInteger extends Number implements java.io.Serializable &#123; private static final long serialVersionUID = 6214790243416807050L; // setup to use Unsafe.compareAndSwapInt for updates private static final Unsafe unsafe = Unsafe.getUnsafe(); private static final long valueOffset; static &#123; try &#123; //变量内存偏移地址 valueOffset = unsafe.objectFieldOffset (AtomicInteger.class.getDeclaredField("value")); &#125; catch (Exception ex) &#123; throw new Error(ex); &#125; &#125; //使用volatile修饰保证线程间的可见性。 private volatile int value; //原子++操作，并调用unsafe.getAndAddInt public final int getAndIncrement() &#123; return unsafe.getAndAddInt(this, valueOffset, 1); &#125;&#125; Unsafe.java中相关代码片段如下： 1234567891011//使用了compareAndSwapInt()public final int getAndAddInt(Object var1, long var2, int var4) &#123; int var5; do &#123; var5 = this.getIntVolatile(var1, var2); &#125; while(!this.compareAndSwapInt(var1, var2, var5, var5 + var4)); return var5; &#125;//调用本地方法（native）public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5); 下面具体分析本地方法 三. CAS原理在openjdk9中找到unsafe.cpp，其路径为：jdk9u/hotspot/src/share/vm/prims/unsafe.cpp12345678910//定义compareAndSetInt为Unsafe_CompareAndSetInt&#123;CC &quot;compareAndSetInt&quot;, CC &quot;(&quot; OBJ &quot;J&quot;&quot;I&quot;&quot;I&quot;&quot;)Z&quot;, FN_PTR(Unsafe_CompareAndSetInt)&#125;,UNSAFE_ENTRY(jboolean, Unsafe_CompareAndSetInt(JNIEnv *env, jobject unsafe, jobject obj, jlong offset, jint e, jint x)) &#123; oop p = JNIHandles::resolve(obj); //获取内存地址 jint* addr = (jint *)index_oop_from_field_offset_long(p, offset); return (jint)(Atomic::cmpxchg(x, addr, e)) == e;&#125; UNSAFE_END Atomic::cmpxchg在atomic.hpp中，文件路径为：jdk9u/hotspot/src/share/vm/runtime/atomic.hpp1234567inline unsigned Atomic::cmpxchg(unsigned int exchange_value, volatile unsigned int* dest, unsigned int compare_value, cmpxchg_memory_order order) &#123; assert(sizeof(unsigned int) == sizeof(jint), &quot;more work to do&quot;); return (unsigned int)Atomic::cmpxchg((jint)exchange_value, (volatile jint*)dest, (jint)compare_value, order);&#125; 使用的是内联函数（inline）,会根据当前处理器的类型调用对应的内联函数，以下是windows_x86的实现。文件路径为：jdk9u/hotspot/src/os_cpu/windows_x86/vm/atomic_windows_x86.hpp1234567891011inline jint Atomic::cmpxchg (jint exchange_value, volatile jint* dest, jint compare_value, cmpxchg_memory_order order) &#123; // alternative for InterlockedCompareExchange int mp = os::is_MP(); __asm &#123; mov edx, dest mov ecx, exchange_value mov eax, compare_value LOCK_IF_MP(mp) cmpxchg dword ptr [edx], ecx &#125;&#125; LOCK_IF_MP(MP):判断前系统是否为多核处理器如果是则为cmpxchg指令添加lock前缀。 cmpxchg：使用cmpxchg指令 intel手册对lock前缀的说明如下(参考：https://www.jianshu.com/p/fb6e91b013cc)： 确保后续指令执行的原子性。 在Pentium及之前的处理器中，带有lock前缀的指令在执行期间会锁住总线，使得其它处理器暂时无法通过总线访问内存，很显然，这个开销很大。在新的处理器中，Intel使用缓存锁定来保证指令执行的原子性，缓存锁定将大大降低lock前缀指令的执行开销。 禁止该指令与前面和后面的读写指令重排序。 把写缓冲区的所有数据刷新到内存中。 CAS的ABA问题CAS存在ABA的问题，如下图所示，线程A最开始获取的值A，到赋值前检查的时候依然是A，然后进行了赋值；但是线程A并不知道这期间有线程B将值更改为B，然后又有线程C将值改回A。我们可以使用版本号来解决以上的问题，也就是上面的修改就会变成1A-1B-2A,就可以发现最开始是1A，但是比较的时候是2A，代表这期间被改动过。可以使用AtomicStampedReference解决ABA的问题，它就是使用版本号来标记变量来保证CAS的正确性。]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>CAS</tag>
+        <tag>并发</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[设计模式——适配器模式]]></title>
     <url>%2F2018%2F06%2F06%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[一. 概述适配器模式（Adapter） ，将一个类的接口转换为客户希望的另一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那个类可以一起工作。 关于适配器，现实生活中也有很多例子，比如电源适配器，中国家庭供电为220V，而手机一般需求是在5V，这里220V就是不兼容的那个类，但我们又需要其供电，我们用电源适配器将其转为5V，使手机能正常充电。还有各种转接头（HDMI转接头，type-c转接头等），顺便说一下，Java中的IO中可以看到适配器模式的使用。 适配器模式属于结构型模式 二. UML类图解析在GoF的设计模式中，适配器模式讲了两种类型——类适配器模式和对象适配器模式。由于类适配器模式需要继承被适配的类，同时有可能需要继承目标类，而Java又不支持多重继承，所以平时常用的是对象适配器模式。下面也会对类适配器模式进行简单的介绍。 对象适配器模式 Client：客户端。 Target：目标接口，客户端所期待的目标接口（可以是具体的或抽象的类，也可以是接口）。 Adapter：适配器，实现目标接口，通过在内部持有一个Adaptee引用，把源接口（Adaptee）转成目标接口（Target）。 Adaptee：需要适配的类。 类适配器模式 基本和对象适配器模式相同，唯一不同的是适配器（Adapter）不在持有Adaptee的引用，而采用继承Adaptee的方式，实现把源接口（Adaptee）转成目标接口（Target）。 三. 代码实现就基于上面的电源适配器场景来进行代码实现。目标接口——MobileCharge（需要5V电流），需要被适配的22V电源——Power220V，电源适配器——PowerAdapter 目标接口——MobileCharge123456789package io.github.brightloong.design.adapter;/** * 充电接口 * Created by BrightLoong on 2018/6/6. */public interface MobileCharge &#123; public void outPut5V();&#125; 需要被适配的22V电源——Power220V1234567891011package io.github.brightloong.design.adapter;/** * 需要被适配的类 * Created by BrightLoong on 2018/6/6. */public class Power220V &#123; public void outPut220V() &#123; System.out.println("输出220V电流"); &#125;&#125; 电源适配器——PowerAdapter(对象适配器模式)123456789101112131415161718192021package io.github.brightloong.design.adapter;/** * 对象适配器 * Created by BrightLoong on 2018/6/6. */public class PowerAdapter implements MobileCharge &#123; //需要适配的220V电源 private Power220V power220V; public PowerAdapter(Power220V power220V) &#123; this.power220V = power220V; &#125; public void outPut5V() &#123; power220V.outPut220V(); System.out.println("电源适配器转换"); System.out.println("输出5V电流"); &#125;&#125; 使用类适配模式的电源适配器——PowerAdapter212345678910111213package io.github.brightloong.design.adapter;/** * 类适配器，使用继承的方式 * Created by BrightLoong on 2018/6/6. */public class PowerAdapter2 extends Power220V implements MobileCharge &#123; public void outPut5V() &#123; super.outPut220V(); System.out.println("电源适配器转换"); System.out.println("输出5V电流"); &#125;&#125; 客户端调用和输出12345678910111213141516package io.github.brightloong.design.adapter;/** * Created by BrightLoong on 2018/6/6. */public class Client &#123; public static void main(String[] args) &#123; MobileCharge mobileCharge = new PowerAdapter(new Power220V()); System.out.println("手机充电"); mobileCharge.outPut5V(); System.out.println("-------------------"); //类适配器模式 MobileCharge mobileCharge2 = new PowerAdapter2(); mobileCharge2.outPut5V(); &#125;&#125; 输出结果： 12345678手机充电输出220V电流电源适配器转换输出5V电流-------------------输出220V电流电源适配器转换输出5V电流 四. 总结使用场景 注意：适配器模式是更多的为了解决已有的在运行的项目中的问题，而不是解决开发阶段的项目，开发阶段的项目应该进行良好的设计。 系统的数据和行为都正确，但接口不符时。 希望复用一些现存的类，但是接口又与复用环境要求不一致的情况。 想使用一个已经存在的类，但是它的接口，也就是它的方法和你的要求不同时。 优点 因为适配器模式可以让不满足要求的类满足要求，所以提高了类的复用。 使目标类和适配者类解耦，增加了类的透明性，通过引入一个适配器类来重用现有的适配者类，无需修改原有结构。 具有较强的灵活性和扩展性，可以很方便的增加适配器。 缺点 一次最多只能适配一个适配者类，不能同时适配多个适配者。 （类适配器存在的问题，因为不能多重继承，考虑使用对象适配器，持有多个适配者） 目标抽象类只能为接口，不能为类，其使用有一定的局限性。(类适配器存在的问题，因为不能多重继承，如果是类，考虑继承而不是实现) 对象适配器]]></content>
@@ -261,8 +274,8 @@
         <category>建站</category>
       </categories>
       <tags>
-        <tag>建站</tag>
         <tag>hexo</tag>
+        <tag>建站</tag>
         <tag>百度分享</tag>
       </tags>
   </entry>
@@ -274,8 +287,8 @@
         <category>建站</category>
       </categories>
       <tags>
-        <tag>hexo配置</tag>
         <tag>建站</tag>
+        <tag>hexo配置</tag>
         <tag>Next主题</tag>
       </tags>
   </entry>
@@ -287,8 +300,8 @@
         <category>建站</category>
       </categories>
       <tags>
-        <tag>建站</tag>
         <tag>hexo</tag>
+        <tag>建站</tag>
       </tags>
   </entry>
   <entry>
