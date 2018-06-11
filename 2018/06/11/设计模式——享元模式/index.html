@@ -1,0 +1,1131 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="设计模式," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="一.概述享元模式（Flyweight Pattern） ,运用共享技术有效的支持大量的细粒度对象。换句话说，使用享元模式对相同或者类似的对象进行复用，以此来减少少相同或者类似的对象的创建数量，从而减少内存占用，提高性能。">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式——享元模式">
+<meta property="og:url" content="https://brightloong.github.io/2018/06/11/设计模式——享元模式/index.html">
+<meta property="og:site_name" content="BrightLoong&#39;s Blog">
+<meta property="og:description" content="一.概述享元模式（Flyweight Pattern） ,运用共享技术有效的支持大量的细粒度对象。换句话说，使用享元模式对相同或者类似的对象进行复用，以此来减少少相同或者类似的对象的创建数量，从而减少内存占用，提高性能。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBcbc7d930aac891ac812432915e5a15bc?method=download&shareKey=2a2e8674935e7a1433c67670e98cb938">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEB8344b8a37888d2af78889fa5059de3ce?method=download&shareKey=20d92d31c32c7f396931626b285ac235">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/WEBbd58cfe58b8c8611e51cec045e136d67?method=download&shareKey=8534150b5a62d87efd65b6acafccd89d">
+<meta property="og:updated_time" content="2018-06-11T12:43:43.145Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式——享元模式">
+<meta name="twitter:description" content="一.概述享元模式（Flyweight Pattern） ,运用共享技术有效的支持大量的细粒度对象。换句话说，使用享元模式对相同或者类似的对象进行复用，以此来减少少相同或者类似的对象的创建数量，从而减少内存占用，提高性能。">
+<meta name="twitter:image" content="https://note.youdao.com/yws/api/personal/file/WEBcbc7d930aac891ac812432915e5a15bc?method=download&shareKey=2a2e8674935e7a1433c67670e98cb938">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://brightloong.github.io/2018/06/11/设计模式——享元模式/"/>
+
+
+
+
+
+  <title> 设计模式——享元模式 | BrightLoong's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1c8a47024ddabbbadeed98a78b39934d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">BrightLoong's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://brightloong.github.io/2018/06/11/设计模式——享元模式/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="BrightLoong">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="BrightLoong's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="BrightLoong's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                设计模式——享元模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-11T20:43:09+08:00">
+                2018-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/设计模式/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/11/设计模式——享元模式/" class="leancloud_visitors" data-flag-title="设计模式——享元模式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://note.youdao.com/yws/api/personal/file/WEBcbc7d930aac891ac812432915e5a15bc?method=download&amp;shareKey=2a2e8674935e7a1433c67670e98cb938" alt="FlyWeight"></p>
+<h3 id="一-概述"><a href="#一-概述" class="headerlink" title="一.概述"></a>一.概述</h3><p><code>享元模式（Flyweight Pattern）</code> ,运用共享技术有效的支持大量的细粒度对象。换句话说，使用享元模式对相同或者类似的对象进行复用，以此来减少少相同或者类似的对象的创建数量，从而减少内存占用，提高性能。<a id="more"></a></p>
+<blockquote>
+<p>享元模式属于结构型模式。</p>
+</blockquote>
+<p>在具体了解前先介绍两个名词：</p>
+<ul>
+<li>内部状态：对象内部共享的内容，不随环境的改变而改变。</li>
+<li>外部状态：相对内部状态，不可以被共享，而且会随环境改变而变化的状态就是外部状态。</li>
+</ul>
+<p>有些时候又把享元模式分成单纯的享元模式和复合享元模式，下面分别介绍。</p>
+<h3 id="二-单纯享元模式"><a href="#二-单纯享元模式" class="headerlink" title="二.单纯享元模式"></a>二.单纯享元模式</h3><p>单纯享元模式，也就是说所有的具体享元类都是可以被共享的，不存在不可以共享的具体享元类。</p>
+<h4 id="1-UML类图解析"><a href="#1-UML类图解析" class="headerlink" title="1. UML类图解析"></a>1. UML类图解析</h4><p>单纯享元模式的UML类图如下：</p>
+<p><img src="https://note.youdao.com/yws/api/personal/file/WEB8344b8a37888d2af78889fa5059de3ce?method=download&amp;shareKey=20d92d31c32c7f396931626b285ac235" alt="Flyweight"></p>
+<ul>
+<li>FlyWeight:享元类的接口，接口中operation方法中的extrinsicState为外部状态。</li>
+<li>ConcreteFlyWeight:具体的享元类，实现接口FlyWeight,存储内部状态intrinsicState。</li>
+<li>FlyWeightFactory:享元工厂，用来创建和管理享元对象，其主要思想就是用一个Map来保存已经创建的对象实例。它主要是用来确保合理的共享FlyWeight对象，当用户请求一个FlyWeight对象时（getFlyWeight()方法），工厂提供一个已经存在的FlyWeight实例，如果不存在则创建一个返回。</li>
+</ul>
+<blockquote>
+<p>享元工厂最好使用单例模式实现。</p>
+</blockquote>
+<h4 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2. 代码实现"></a>2. 代码实现</h4><h5 id="享元类接口——FlyWeight"><a href="#享元类接口——FlyWeight" class="headerlink" title="享元类接口——FlyWeight"></a>享元类接口——FlyWeight</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.github.brightloong.lab.design.flyweight;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * FlyWeight class</span></span><br><span class="line"><span class="comment"> * 定义享元类接口</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BrightLoong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/6/11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FlyWeight</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 操作方法.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> extrinsicState 外部状态</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">(String extrinsicState)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="具体享元实现——ConcreteFlyWeight"><a href="#具体享元实现——ConcreteFlyWeight" class="headerlink" title="具体享元实现——ConcreteFlyWeight"></a>具体享元实现——ConcreteFlyWeight</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.github.brightloong.lab.design.flyweight;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * ConcreteFlyWeight class</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BrightLoong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/6/11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteFlyWeight</span> <span class="keyword">implements</span> <span class="title">FlyWeight</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**内部状态*/</span></span><br><span class="line">    <span class="keyword">private</span> String intrinsicState;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 构造方法，并设置内部状态.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> intrinsicState</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="title">ConcreteFlyWeight</span><span class="params">(String intrinsicState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.intrinsicState = intrinsicState;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">(String extrinsicState)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"内部状态："</span> + intrinsicState);</span><br><span class="line">        System.out.println(<span class="string">"外部状态："</span> + extrinsicState);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="享元工厂——FlyWeightFactory"><a href="#享元工厂——FlyWeightFactory" class="headerlink" title="享元工厂——FlyWeightFactory"></a>享元工厂——FlyWeightFactory</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.github.brightloong.lab.design.flyweight;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * FlyWeightFactory class</span></span><br><span class="line"><span class="comment"> * 用于创建和管理享元对象，本身是单例的。</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BrightLoong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/6/11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyWeightFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**唯一的factory实例*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> FlyWeightFactory factory = <span class="keyword">new</span> FlyWeightFactory();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**用于保存享元对象的map*/</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, FlyWeight&gt; flyWeights = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 私有的构造函数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">FlyWeightFactory</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回FlyWeightFactory唯一实例.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> FlyWeightFactory <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 单纯享元模式工厂方法.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> state key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> FlyWeight <span class="title">getFlyWeight</span><span class="params">(String state)</span> </span>&#123;</span><br><span class="line">        FlyWeight flyWeight = flyWeights.get(state);</span><br><span class="line">        <span class="keyword">if</span> (flyWeight == <span class="keyword">null</span>) &#123;</span><br><span class="line">            flyWeight = <span class="keyword">new</span> ConcreteFlyWeight(state);</span><br><span class="line">            flyWeights.put(state, flyWeight);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> flyWeight;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="客户端调用和输出"><a href="#客户端调用和输出" class="headerlink" title="客户端调用和输出"></a>客户端调用和输出</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.github.brightloong.lab.design.flyweight;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Client class</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BrightLoong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/6/11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        FlyWeightFactory factory = FlyWeightFactory.getInstance();</span><br><span class="line">        FlyWeight flyWeight1 = factory.getFlyWeight(<span class="string">"a"</span>);</span><br><span class="line">        FlyWeight flyWeight2 = factory.getFlyWeight(<span class="string">"b"</span>);</span><br><span class="line">        FlyWeight flyWeight3 = factory.getFlyWeight(<span class="string">"a"</span>);</span><br><span class="line">        FlyWeight flyWeight4 = factory.getFlyWeight(<span class="string">"c"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//flyWeight1和flyWeight3具有相同的内部状态a,使用同一个实例，下面结果输出true</span></span><br><span class="line">        System.out.println(flyWeight1 == flyWeight3);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//不同的外部状态从方法传入</span></span><br><span class="line">        flyWeight2.operation(<span class="string">"hello"</span>);</span><br><span class="line">        flyWeight2.operation(<span class="string">"hi"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">true</span><br><span class="line">内部状态：b</span><br><span class="line">外部状态：hello</span><br><span class="line">内部状态：b</span><br><span class="line">外部状态：hi</span><br></pre></td></tr></table></figure></p>
+<h3 id="三-复合享元模式"><a href="#三-复合享元模式" class="headerlink" title="三. 复合享元模式"></a>三. 复合享元模式</h3><p>复合享元模式，将一些单纯享元使用组合模式加以组合，可以形成复合享元对象，这样的复合享元对象本身不能共享，但是它们可以分解成单纯享元对象，而后者则可以共享。</p>
+<p>复合享元模式中，组成复合享元对象的每个单纯享元对象拥有自己的内部状态，而每个单纯享元对象的外部状态都和复合享元对象的外部状态相同。<strong><em>所以复合享元模式可以对多个单纯享元对象设置相同的外部状态，</em></strong> 这也是复合享元模式的应用场景。</p>
+<h4 id="1-UML类图解析-1"><a href="#1-UML类图解析-1" class="headerlink" title="1. UML类图解析"></a>1. UML类图解析</h4><p>复合享元模式的UML类图如下：<br><img src="https://note.youdao.com/yws/api/personal/file/WEBbd58cfe58b8c8611e51cec045e136d67?method=download&amp;shareKey=8534150b5a62d87efd65b6acafccd89d" alt="Flyweight"></p>
+<ul>
+<li>FlyWeight:享元类的接口，接口中operation方法中的extrinsicState为外部状态,是单纯享元类和复合享元类的共同接口。</li>
+<li>ConcreteFlyWeight:具体的享元类，实现接口FlyWeight,存储内部状态intrinsicState。</li>
+<li>CompositeConcreteFlyweight：复合享元类，实现FlyWeight接口，同时使用Map来保存单纯享元对象，并提供add()和remove()方法来增加或者删除单纯享元对象。</li>
+<li>FlyWeightFactory:享元工厂，用来创建和管理享元对象，其主要思想就是用一个Map来保存已经创建的对象实例。它主要是用来确保合理的共享FlyWeight对象。<ul>
+<li>getFlyWeight(state:String):单纯享元工厂方法，当用户请求一个FlyWeight对象时，工厂提供一个已经存在的FlyWeight实例，如果不存在则创建一个返回(直接返回单纯享元对象)。</li>
+<li>getFlyWeight(states:List<string>):复合享元工厂方法，根据提供的states:List<string>，使用add()方法，将每个state对应的单纯享元对象添加到复合享元对象（CompositeConcreteFlyweight）的flyWeights中，并且这些单纯享元对象是从FlyWeightFactory的flyWeights中获取的（如果不存在则添加并返回），因此这些单纯享元对象是可以共享的。</string></string></li>
+</ul>
+</li>
+</ul>
+<h4 id="2-代码实现-1"><a href="#2-代码实现-1" class="headerlink" title="2. 代码实现"></a>2. 代码实现</h4><p>接口和单纯享元类的代码在上面已经列出了，下面是其他相关代码。</p>
+<h5 id="复合享元类——CompositeConcreteFlyweight"><a href="#复合享元类——CompositeConcreteFlyweight" class="headerlink" title="复合享元类——CompositeConcreteFlyweight"></a>复合享元类——CompositeConcreteFlyweight</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.github.brightloong.lab.design.flyweight;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * CompositeConcreteFlyweight class</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BrightLoong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/6/11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CompositeConcreteFlyweight</span> <span class="keyword">implements</span> <span class="title">FlyWeight</span> </span>&#123;</span><br><span class="line">    Map&lt;String, FlyWeight&gt; flyWeights = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * flyWeights是单纯享元对象的集合，它们具有相同的外部状态extrinsicState，</span></span><br><span class="line"><span class="comment">     * 调用的时候使用循环调用单纯享元对象的operation方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> extrinsicState 外部状态</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">(String extrinsicState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Map.Entry&lt;String, FlyWeight&gt; entry : flyWeights.entrySet()) &#123;</span><br><span class="line">            entry.getValue().operation(extrinsicState);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 添加单纯享元对象.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> state</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> flyWeight</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(String state, FlyWeight flyWeight)</span> </span>&#123;</span><br><span class="line">        flyWeights.put(state, flyWeight);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 移除单纯享元对象.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> state</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(String state)</span> </span>&#123;</span><br><span class="line">        flyWeights.remove(state);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="修改后的享元工厂——FlyWeightFactory"><a href="#修改后的享元工厂——FlyWeightFactory" class="headerlink" title="修改后的享元工厂——FlyWeightFactory"></a>修改后的享元工厂——FlyWeightFactory</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.github.brightloong.lab.design.flyweight;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * FlyWeightFactory class</span></span><br><span class="line"><span class="comment"> * 用于创建和管理享元对象，本身是单例的。</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BrightLoong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/6/11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyWeightFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**唯一的factory实例*/</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> FlyWeightFactory factory = <span class="keyword">new</span> FlyWeightFactory();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**用于保存享元对象的map*/</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, FlyWeight&gt; flyWeights = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 私有的构造函数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">FlyWeightFactory</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回FlyWeightFactory唯一实例.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> FlyWeightFactory <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 单纯享元模式工厂方法.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> state key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> FlyWeight <span class="title">getFlyWeight</span><span class="params">(String state)</span> </span>&#123;</span><br><span class="line">        FlyWeight flyWeight = flyWeights.get(state);</span><br><span class="line">        <span class="keyword">if</span> (flyWeight == <span class="keyword">null</span>) &#123;</span><br><span class="line">            flyWeight = <span class="keyword">new</span> ConcreteFlyWeight(state);</span><br><span class="line">            flyWeights.put(state, flyWeight);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> flyWeight;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 复合享元模式工厂方法.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> states</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> FlyWeight <span class="title">getFlyWeight</span><span class="params">(List&lt;String&gt; states)</span> </span>&#123;</span><br><span class="line">        CompositeConcreteFlyweight flyWeight = <span class="keyword">new</span> CompositeConcreteFlyweight();</span><br><span class="line">        <span class="keyword">for</span> (String state : states) &#123;</span><br><span class="line">            <span class="comment">//调用了单纯享元模式工厂方法,所以使用flyWeight.add加入的单纯享元对象是可以共享的</span></span><br><span class="line">            flyWeight.add(state, <span class="keyword">this</span>.getFlyWeight(state));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> flyWeight;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="客户端调用和输出-1"><a href="#客户端调用和输出-1" class="headerlink" title="客户端调用和输出"></a>客户端调用和输出</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.github.brightloong.lab.design.flyweight;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Client2 class</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> BrightLoong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/6/11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        FlyWeightFactory factory = FlyWeightFactory.getInstance();</span><br><span class="line">        List&lt;String&gt; states = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        states.add(<span class="string">"a"</span>);</span><br><span class="line">        states.add(<span class="string">"b"</span>);</span><br><span class="line">        states.add(<span class="string">"c"</span>);</span><br><span class="line">        FlyWeight flyWeight = factory.getFlyWeight(states);</span><br><span class="line">        FlyWeight flyWeight2 = factory.getFlyWeight(states);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//并不相等，输出false，复合享元对象不可共享</span></span><br><span class="line">        System.out.println(flyWeight == flyWeight2);</span><br><span class="line">        <span class="comment">//多个单纯享元对象具有相同的外部状态hello</span></span><br><span class="line">        flyWeight.operation(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">false</span><br><span class="line">内部状态：a</span><br><span class="line">外部状态：hello</span><br><span class="line">内部状态：b</span><br><span class="line">外部状态：hello</span><br><span class="line">内部状态：c</span><br><span class="line">外部状态：hello</span><br></pre></td></tr></table></figure></p>
+<h3 id="四-总结"><a href="#四-总结" class="headerlink" title="四. 总结"></a>四. 总结</h3><h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><ul>
+<li>系统中有大量相同或者相似的对象，因此而造成了系统存储开销。</li>
+<li>对象的大多数状态是外部状态，如果删除对象的外部状态，那么可以用相对较少的共享对象取代很多组对象，此时可以考虑使用享元模式。也就是说可以将外部状态使用传入对象的方式来处理。</li>
+</ul>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>实现了对象的共享</li>
+<li>使用享元模式减少对象的创建，减少了对内存的使用。</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>使用享元模式，需要分离出内部状态和外部状态，使得系统更加复杂。</li>
+</ul>
+<h4 id="多说一句"><a href="#多说一句" class="headerlink" title="多说一句"></a>多说一句</h4><p>Java中String就是对享元模式的应用，如下代码会输出true。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"Hello Word"</span>;</span><br><span class="line">String b = <span class="string">"Hello Word"</span>;</span><br><span class="line">System.out.println(a == b);</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat_play.jpg" alt="BrightLoong WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/aliplay.jpg" alt="BrightLoong Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/10/Java中CAS学习记录/" rel="next" title="Java中CAS学习记录">
+                <i class="fa fa-chevron-left"></i> Java中CAS学习记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTcwMy82Mjcx"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="BrightLoong" />
+          <p class="site-author-name" itemprop="name">BrightLoong</p>
+          <p class="site-description motion-element" itemprop="description">Remember what should be remembered, and forget what should be forgotten.Alter what is changeable, and accept what is mutable.</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/BrightLoong/" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/c19e2c35c1ae" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:chenlong_cn@163.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope-o"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-概述"><span class="nav-number">1.</span> <span class="nav-text">一.概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-单纯享元模式"><span class="nav-number">2.</span> <span class="nav-text">二.单纯享元模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-UML类图解析"><span class="nav-number">2.1.</span> <span class="nav-text">1. UML类图解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-代码实现"><span class="nav-number">2.2.</span> <span class="nav-text">2. 代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#享元类接口——FlyWeight"><span class="nav-number">2.2.1.</span> <span class="nav-text">享元类接口——FlyWeight</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#具体享元实现——ConcreteFlyWeight"><span class="nav-number">2.2.2.</span> <span class="nav-text">具体享元实现——ConcreteFlyWeight</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#享元工厂——FlyWeightFactory"><span class="nav-number">2.2.3.</span> <span class="nav-text">享元工厂——FlyWeightFactory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端调用和输出"><span class="nav-number">2.2.4.</span> <span class="nav-text">客户端调用和输出</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-复合享元模式"><span class="nav-number">3.</span> <span class="nav-text">三. 复合享元模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-UML类图解析-1"><span class="nav-number">3.1.</span> <span class="nav-text">1. UML类图解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-代码实现-1"><span class="nav-number">3.2.</span> <span class="nav-text">2. 代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#复合享元类——CompositeConcreteFlyweight"><span class="nav-number">3.2.1.</span> <span class="nav-text">复合享元类——CompositeConcreteFlyweight</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改后的享元工厂——FlyWeightFactory"><span class="nav-number">3.2.2.</span> <span class="nav-text">修改后的享元工厂——FlyWeightFactory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#客户端调用和输出-1"><span class="nav-number">3.2.3.</span> <span class="nav-text">客户端调用和输出</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-总结"><span class="nav-number">4.</span> <span class="nav-text">四. 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景"><span class="nav-number">4.1.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">4.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">4.3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多说一句"><span class="nav-number">4.4.</span> <span class="nav-text">多说一句</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BrightLoong</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("CjvbYwDMyYkFVzn7hH7lHRKj-gzGzoHsz", "7Tr1I9AEuHGOezPTyIy1x1g3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+</body>
+</html>
