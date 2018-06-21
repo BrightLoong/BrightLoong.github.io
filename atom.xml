@@ -112,9 +112,9 @@
     
       <category term="Java" scheme="https://brightloong.github.io/tags/Java/"/>
     
-      <category term="并发" scheme="https://brightloong.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
       <category term="CAS" scheme="https://brightloong.github.io/tags/CAS/"/>
+    
+      <category term="并发" scheme="https://brightloong.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
     
   </entry>
   
