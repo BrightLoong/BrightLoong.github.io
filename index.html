@@ -404,11 +404,9 @@
 
       
         
-          
-          
-一. 概述AQS（AbstractQueuedSynchronizer），队列同步器，Java中很多同步类都是基于AQS实现的，比如：ReentrantLock、Semaphore、CountDownLatch等。
-AQS提供了一个实现阻塞锁和相关同步组件的框架，这个框架实现依赖于FIFO（fir
-          ...
+          <p><img src="https://note.youdao.com/yws/api/personal/file/WEB2779a243b0166b1debcfff72deaf7c31?method=download&amp;shareKey=02f4b508dc7ad8556ad0bf57feee5d6d" alt="AQS"></p>
+<h2 id="一-概述"><a href="#一-概述" class="headerlink" title="一. 概述"></a>一. 概述</h2><p>AQS（AbstractQueuedSynchronizer），队列同步器，Java中很多同步类都是基于AQS实现的，比如：ReentrantLock、Semaphore、CountDownLatch等。</p>
+<p>AQS提供了一个实现阻塞锁和相关同步组件的框架，这个框架实现依赖于FIFO（first-in-first-out，先进先出）的等待队列来完成获取资源线程的排队工作。AQS是绝大多数同步器的基础，它的内部使用一个 int 型的变量表示同步状态(资源状态)，AQS并不维护这个状态的值，只是提供了一系列的原子更新方法，getState、setState、compareAndSetState，而由继承AQS的子类去重写特定定的方法实现对共享资源的获取和释放，而其他的比如线程排队、线程挂起、线程唤醒出队等已经在AQS中实现好了（典型的设计模式中模板方法模式的使用）。
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/06/21/Java同步器——AQS学习/#more" rel="contents">
