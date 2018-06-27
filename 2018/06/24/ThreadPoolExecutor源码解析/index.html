@@ -100,7 +100,7 @@
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/ED50E646C3E448E28D5EE1A9588DBDF3?method=download&shareKey=7e335231a105f659ece6aa3f003d568c">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/4CF4088172D64FA6BCF98D5528A18BC1?method=download&shareKey=76b7ecc377a04238cb0c2089c33ba63b">
 <meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/FADE83494E474229A97DA761CE62DBFF?method=download&shareKey=0326192662e5e1b741e81dac31287883">
-<meta property="og:updated_time" content="2018-06-24T10:23:49.081Z">
+<meta property="og:updated_time" content="2018-06-27T12:37:43.279Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThreadPoolExecutor源码解析">
 <meta name="twitter:description" content="一. 线程池概述在介绍线程池之前，先说一下为什么在开发中要使用线程池，个人认为主要有一下的原因：  开发中使用线程的时候，大部分线程执行的时间很短，频繁的创建、启动、销毁线程带来不必要的资源消耗。 线程的创建、挂起、唤醒等操作都需要依靠CPU调度，大量的线程会频繁进行上下文切换，特别是任务执行时间短、任务数量多的情况，大量时间将花在上下文切换上，又耗时，又耗资源。 无法对任务做统一的管理、分配、">
@@ -447,7 +447,7 @@
 </tr>
 <tr>
 <td>workQueue</td>
-<td>任务队列，常用的有三种：SynchronousQueue（默认使用的队列）、LinkedBlockingQueue、ArrayBlockingQueue</td>
+<td>任务队列，常用的有三种：SynchronousQueue、LinkedBlockingQueue、ArrayBlockingQueue</td>
 </tr>
 <tr>
 <td>threadFactory</td>
